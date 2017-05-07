@@ -9,7 +9,10 @@
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
