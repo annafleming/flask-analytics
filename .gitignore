@@ -1,2 +1,5 @@
 /.idea
+/data
 .ds_store
+/analytics/main/__pycache__/
+
