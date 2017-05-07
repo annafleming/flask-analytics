@@ -2,4 +2,4 @@
 /data
 .ds_store
 /analytics/main/__pycache__/
-
+/node_modules/
