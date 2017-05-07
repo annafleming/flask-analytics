@@ -5986,3 +5986,7 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
 @media print {
   .hidden-print {
     display: none !important; } }
+
+.main-logo {
+  height: 2em;
+  width: auto; }

@@ -1,16 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>{% block title %}{% endblock %}</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-        {% block content %}{% endblock %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>DataPup</title>
+    <link href="static/css/style.css" rel="stylesheet">
+  </head>
 
-        {% block scripts %}
-        {% endblock %}
-    </body>
+  <body>
+    <nav class="navbar navbar-inverse bg-primary navbar-light bg-faded">
+      <a class="navbar-brand" href="/">
+          DataPup<img src="static/img/logo.gif" alt="DataPup logo" class="main-logo"/>
+      </a>
+    </nav>
+  </body>
 </html>
