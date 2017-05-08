@@ -1,11 +1,13 @@
 from flask import render_template
 
 from . import main
-
+from ..models import get_summary
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+    petsafe = get_summary('petsafe')
+    sportdog = get_summary('sportdog')
+    return render_template('index.html', petsafe=petsafe, sportdog=sportdog)
 
 @main.app_errorhandler(404)
 def page_not_found(e):
