@@ -2,12 +2,12 @@ from flask import render_template
 
 from . import main
 from ..models.summary import get_summary
-
+from ..config import Config
 
 @main.route('/')
 def index():
-    petsafe = get_summary('petsafe')
-    sportdog = get_summary('sportdog')
+    petsafe = get_summary(Config.PETSAFE_APP)
+    sportdog = get_summary(Config.SPORTDOG_APP)
     return render_template('index.html', petsafe=petsafe, sportdog=sportdog)
 
 

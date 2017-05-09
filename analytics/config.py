@@ -6,6 +6,10 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config:
     SECRET_KEY = 'secret key'
     DEBUG = False
+    PETSAFE_APP = 'petsafe'
+    SPORTDOG_APP = 'sportdog'
+    VOC_SURVEY='voc'
+    COMMENT_CARD_SURVEY = 'cc'
 
 
 class DevelopmentConfig(Config):
