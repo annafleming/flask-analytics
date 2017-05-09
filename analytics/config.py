@@ -8,7 +8,7 @@ class Config:
     DEBUG = False
     PETSAFE_APP = 'petsafe'
     SPORTDOG_APP = 'sportdog'
-    VOC_SURVEY='voc'
+    VOC_SURVEY ='voc'
     COMMENT_CARD_SURVEY = 'cc'
 
 
