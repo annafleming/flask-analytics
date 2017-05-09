@@ -3,3 +3,4 @@ flask_script
 flask-debugtoolbar
 flask-testing
 nose
+pandas
