@@ -1,7 +1,6 @@
-import pandas as pd
-import numpy as np
-import datetime
 from .csv_loader import load_dataset
+from .dataset_operations import merge_datasets_by_fields, get_entries_after
+from .datetime_operations import get_beginning_of_the_week_date
 
 
 def get_summary(site_name):
@@ -25,19 +24,6 @@ def get_summary(site_name):
             'detractors': 99
         },
     }
-
-
-def get_entries_after(dataset, start_date):
-    return dataset[dataset['EndDate'] >= start_date]
-
-
-def merge_datasets_by_fields(ds1, ds2, fields):
-    return pd.concat([ds1[fields], ds2[fields]], axis=0)
-
-
-def get_beginning_of_the_week_date():
-    beginning_of_the_week = datetime.datetime.now() - datetime.timedelta(days=7)
-    return beginning_of_the_week.strftime("%Y-%m-%d 00:00:00")
 
 
 def addition(a, b):
