@@ -1,5 +1,6 @@
 /.idea
 /data
 .ds_store
-/analytics/main/__pycache__/
 /node_modules/
+__pycache__/
+*.py[cod]
