@@ -1,20 +1,12 @@
 import pandas as pd
 import numpy as np
 import datetime
-
-PETSAFE_CC = 'data/PetSafeFeedbackCommentCard.csv'
-PETSAFE_VOC = 'data/PetSafeVOCSurvey.csv'
-SPORTDOG_CC = 'data/SportDOGFeedbackCommentCard.csv'
-SPORTDOG_VOC = 'data/SportDOGVOCSurvey.csv'
+from .csv_loader import load_dataset
 
 
 def get_summary(site_name):
-    if site_name == 'petsafe':
-        voc_dataset = load_dataset(PETSAFE_VOC)
-        cc_dataset = load_dataset(PETSAFE_CC)
-    else:
-        voc_dataset = load_dataset(SPORTDOG_VOC)
-        cc_dataset = load_dataset(SPORTDOG_CC)
+    voc_dataset = load_dataset(site_name, 'voc')
+    cc_dataset = load_dataset(site_name, 'cc')
 
     merged_dataset = merge_datasets_by_fields(voc_dataset, cc_dataset, ['EndDate'])
     merged_dataset = get_entries_after(merged_dataset, get_beginning_of_the_week_date())
@@ -33,10 +25,6 @@ def get_summary(site_name):
             'detractors': 99
         },
     }
-
-
-def load_dataset(path):
-    return pd.read_csv(path)
 
 
 def get_entries_after(dataset, start_date):
