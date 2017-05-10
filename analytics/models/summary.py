@@ -1,6 +1,6 @@
 from .csv_loader import load_dataset
-from .dataset_operations import merge_datasets_vertically, get_entries_after
-from .datetime_operations import subtract_from_today_days
+from ..helpers.dataset import merge_datasets_vertically, get_entries_after
+from ..helpers.datetime_helper import subtract_from_today_days
 from ..config import Config
 
 
