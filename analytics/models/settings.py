@@ -1,4 +1,15 @@
-from ..config import Config
+from analytics.config import Config
+
+file_names = {
+    'petsafe': {
+        'voc': 'data/PetSafeVOCSurvey.csv',
+        'cc': 'data/PetSafeFeedbackCommentCard.csv'
+    },
+    'sportdog': {
+        'voc': 'data/SportDOGVOCSurvey.csv',
+        'cc': 'data/SportDOGFeedbackCommentCard.csv'
+    }
+}
 
 column_rename = {
     Config.PETSAFE_APP: {

@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 import analytics
 import pandas as pd
 
@@ -18,7 +19,22 @@ class CsvLoaderTest(unittest.TestCase):
         ds = pd.DataFrame([["2017-05-07"], ["2017-05-08"], ["2017-05-09"]], columns=['EndDate'])
         self.assertRaises(Exception, analytics.models.csv_loader.trim_heading_rows, ds, rows_number)
 
+    def fake_read_csv(self):
+        return pd.DataFrame([["2017-05-07"], ["2017-05-08"], ["2017-05-09"]], columns=['EndDate'])
 
+    def fake_trim_heading_rows(dataset, rows):
+        return dataset
+
+    @patch('analytics.models.csv_loader.file_names', { 'test': {'voc': 'data/sample.csv'}})
+    @patch('analytics.models.csv_loader.pd.read_csv', fake_read_csv)
+    @patch('analytics.models.csv_loader.trim_heading_rows', fake_trim_heading_rows)
+    def test_should_load_dataset_with_existing_key(self):
+        ds = analytics.models.csv_loader.load_dataset('test', 'voc', [])
+        self.assertEqual(len(ds), 3)
+
+    @patch('analytics.models.csv_loader.file_names', {'test': {'somekey': 'data/sample.csv'}})
+    def test_should_raise_exception_if_config_key_does_not_exist(self):
+        self.assertRaises(Exception, analytics.models.csv_loader.load_dataset, 'test', 'voc', [])
 
 
     if __name__ == '__main__':
