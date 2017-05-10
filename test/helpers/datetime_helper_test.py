@@ -4,7 +4,7 @@ from freezegun import freeze_time
 import datetime
 
 
-class DatetimeHTest(unittest.TestCase):
+class DatetimeHelperTest(unittest.TestCase):
     def setUp(self):
         self.app = analytics.create_app('test')
 

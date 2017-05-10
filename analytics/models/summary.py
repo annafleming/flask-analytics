@@ -1,5 +1,5 @@
 from .csv_loader import load_dataset
-from ..helpers.dataset import merge_datasets_vertically, get_entries_after
+from ..helpers.dataset_helper import merge_datasets_vertically, get_entries_after
 from ..helpers.datetime_helper import subtract_from_today_days
 from ..config import Config
 
