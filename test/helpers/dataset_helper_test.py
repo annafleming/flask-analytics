@@ -33,5 +33,14 @@ class DatasetHelperTest(unittest.TestCase):
         self.assertIn('Type', filtered_dataset.columns.values)
         self.assertNotIn('Exclude', filtered_dataset.columns.values)
 
+    def test_should_add_columns_if_not_exist(self):
+        columns = ['Date', 'Type', 'Exclude']
+        df = pd.DataFrame([["2017-05-07", 'Type1'], ["2017-05-08", 'Type2']], columns=['Date', 'Type'])
+        analytics.helpers.dataset_helper.add_colums_if_not_exist(df, columns)
+        self.assertIn('Date', df.columns.values)
+        self.assertIn('Type', df.columns.values)
+        self.assertIn('Exclude', df.columns.values)
+
+
     if __name__ == '__main__':
         unittest.main()

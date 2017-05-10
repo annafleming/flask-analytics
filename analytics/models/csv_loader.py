@@ -6,8 +6,9 @@ from ..helpers import dataset_helper
 def load_dataset(site_name, survey_type, columns):
     dataset = pd.read_csv(file_names[site_name][survey_type])
     dataset = trim_heading_rows(dataset=dataset, rows=2)
-    # dataset = get_dataset_columns(dataset=dataset, columns=dataset)
-    # return dataset
+    dataset = dataset_helper.rename_columns(dataset, fetch_original_column_names(site_name, survey_type, columns))
+    dataset = dataset_helper.add_colums_if_not_exist(dataset, columns)
+    dataset = dataset_helper.filter_columns(dataset, columns)
     return dataset
 
 

@@ -15,3 +15,10 @@ def rename_columns(dataset, column_names):
 
 def filter_columns(dataset, columns):
     return dataset[columns]
+
+
+def add_colums_if_not_exist(dataset, columns):
+    for name in columns:
+        if name not in dataset:
+            dataset[name] = ''
+    return dataset
