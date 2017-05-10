@@ -10,7 +10,7 @@ def get_summary(site_name):
     cc_dataset = load_dataset(site_name, Config.COMMENT_CARD_SURVEY, columns)
 
     merged_dataset = merge_datasets_by_fields(voc_dataset, cc_dataset, ['EndDate'])
-    merged_dataset = get_entries_after(merged_dataset, subtract_from_today_days(7))
+    merged_dataset = get_entries_after(merged_dataset, subtract_from_today_days(7), 'EndDate')
 
     return {
         'week': {
