@@ -20,5 +20,11 @@ class DatasetHelperTest(unittest.TestCase):
         filtered_ds = analytics.helpers.dataset_helper.get_entries_after(df, filter_date, 'EndDate')
         self.assertEquals(len(filtered_ds), 2)
 
+    def test_should_rename_columns(self):
+        df = pd.DataFrame([["2017-05-07"], ["2017-05-08"], ["2017-05-09"]], columns=['EndDate'])
+        renamed_dataset = analytics.helpers.dataset_helper.rename_columns(df, {'EndDate': 'NewEndDate'})
+        self.assertIn('NewEndDate', renamed_dataset.columns.values)
+        self.assertNotIn('EndDate', renamed_dataset.columns.values)
+
     if __name__ == '__main__':
         unittest.main()
