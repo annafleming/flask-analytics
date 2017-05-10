@@ -26,5 +26,12 @@ class DatasetHelperTest(unittest.TestCase):
         self.assertIn('NewEndDate', renamed_dataset.columns.values)
         self.assertNotIn('EndDate', renamed_dataset.columns.values)
 
+    def test_should_filter_requested_columns(self):
+        df = pd.DataFrame([["2017-05-07", 'Type1', 'True'], ["2017-05-08", 'Type2', 'False']], columns=['Date', 'Type', 'Exclude'])
+        filtered_dataset = analytics.helpers.dataset_helper.filter_columns(df, ['Date', 'Type'])
+        self.assertIn('Date', filtered_dataset.columns.values)
+        self.assertIn('Type', filtered_dataset.columns.values)
+        self.assertNotIn('Exclude', filtered_dataset.columns.values)
+
     if __name__ == '__main__':
         unittest.main()

@@ -11,3 +11,7 @@ def merge_datasets_vertically(ds1, ds2):
 
 def rename_columns(dataset, column_names):
     return dataset.rename(columns=column_names)
+
+
+def filter_columns(dataset, columns):
+    return dataset[columns]

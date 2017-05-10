@@ -44,4 +44,3 @@ class CsvLoaderTest(unittest.TestCase):
     if __name__ == '__main__':
         unittest.main()
 
-# df = pd.DataFrame([["2017-05-07", 'Type1', 'True'], ["2017-05-08", 'Type2', 'False']], columns=['C1', 'C2', 'C3'])
