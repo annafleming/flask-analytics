@@ -20,6 +20,8 @@ def load_dataset(site_name, survey_type, columns):
 
 
 def trim_heading_rows(dataset, rows):
+    if len(dataset) < rows:
+        raise Exception('Dataset length is less then the number of rows to remove')
     return dataset[rows:]
 
 
