@@ -4,3 +4,4 @@ flask-debugtoolbar
 flask-testing
 nose
 pandas
+freezegun

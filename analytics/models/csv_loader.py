@@ -12,10 +12,16 @@ file_names = {
 }
 
 
-def load_dataset(site_name, survey_type):
+def load_dataset(site_name, survey_type, columns):
     dataset = pd.read_csv(file_names[site_name][survey_type])
-    return trim_heading_rows(dataset)
+    dataset = trim_heading_rows(dataset=dataset)
+    # dataset = get_dataset_columns(dataset=dataset, columns=dataset)
+    return dataset
 
 
 def trim_heading_rows(dataset):
     return dataset[2:]
+
+
+def get_dataset_columns(dataset, columns):
+    return 1
