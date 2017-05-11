@@ -22,3 +22,14 @@ def add_colums_if_not_exist(dataset, columns):
         if name not in dataset:
             dataset[name] = ''
     return dataset
+
+
+def lambda_get_first_present_value(row, columns):
+    for column in columns:
+        if not pd.isnull(row[column]):
+            return row[column]
+    return row[columns[-1]]
+
+
+def merge_columns(dataset, columns):
+    return dataset.apply(lambda x: lambda_get_first_present_value(x, columns), axis=1)

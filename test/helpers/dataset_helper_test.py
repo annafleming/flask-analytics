@@ -41,6 +41,15 @@ class DatasetHelperTest(unittest.TestCase):
         self.assertIn('Type', df.columns.values)
         self.assertIn('Exclude', df.columns.values)
 
+    def test_should_add_column_by_merging_two_others_by_order(self):
+        df = pd.DataFrame([[1, None], [None, 3], [5, None]], columns=['WebsiteRating', 'ProductRating'])
+        df['OverallRating'] = analytics.helpers.dataset_helper.merge_columns(df, ['WebsiteRating', 'ProductRating'])
+        self.assertEqual(df['OverallRating'].tolist(), [1, 3, 5])
+
+    def test_should_add_column_by_merging_three_others_by_order(self):
+        df = pd.DataFrame([[1, None, None], [None, 3, None], [None, None, 5]], columns=['WebsiteRating', 'ProductRating', 'ServiceRating'])
+        df['OverallRating'] = analytics.helpers.dataset_helper.merge_columns(df, ['WebsiteRating', 'ProductRating', 'ServiceRating'])
+        self.assertEqual(df['OverallRating'].tolist(), [1, 3, 5])
 
     if __name__ == '__main__':
         unittest.main()
