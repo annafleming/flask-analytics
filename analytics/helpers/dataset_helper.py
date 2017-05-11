@@ -20,7 +20,7 @@ def filter_columns(dataset, columns):
 def add_columns_if_not_exist(dataset, columns):
     for name in columns:
         if name not in dataset:
-            dataset[name] = ''
+            dataset[name] = None
     return dataset
 
 
