@@ -133,3 +133,28 @@ column_types = {
     'DislikeText': 'object',
     'PraiseText': 'object',
 }
+
+column_scale = {
+    'WebsiteRating': {
+            'Very Bad': 1,
+            'Bad': 1,
+            'Fair': 2,
+            'Good': 3,
+            'Very Good': 3,
+            'Default': 0
+        },
+    'ProductRating': {
+        '0': 1,
+        '1': 1,
+        '2': 1,
+        '3': 1,
+        '4': 1,
+        '5': 1,
+        '6': 1,
+        '7': 2,
+        '8': 2,
+        '9': 3,
+        '10': 3,
+        'Default': 0
+    }
+}

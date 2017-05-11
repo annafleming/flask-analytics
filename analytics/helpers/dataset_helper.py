@@ -17,7 +17,7 @@ def filter_columns(dataset, columns):
     return dataset[columns]
 
 
-def add_colums_if_not_exist(dataset, columns):
+def add_columns_if_not_exist(dataset, columns):
     for name in columns:
         if name not in dataset:
             dataset[name] = ''
@@ -26,7 +26,7 @@ def add_colums_if_not_exist(dataset, columns):
 
 def lambda_get_first_present_value(row, columns):
     for column in columns:
-        if not pd.isnull(row[column]):
+        if not pd.isnull(row[column]) and row[column]:
             return row[column]
     return row[columns[-1]]
 
