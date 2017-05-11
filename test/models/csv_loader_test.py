@@ -25,13 +25,6 @@ class CsvLoaderTest(unittest.TestCase):
     def fake_trim_heading_rows(dataset, rows):
         return dataset
 
-    @patch('analytics.models.csv_loader.file_names', { 'test': {'voc': 'data/sample.csv'}})
-    @patch('analytics.models.csv_loader.pd.read_csv', fake_read_csv)
-    @patch('analytics.models.csv_loader.trim_heading_rows', fake_trim_heading_rows)
-    def test_should_load_dataset_with_existing_key(self):
-        ds = analytics.models.csv_loader.load_dataset('test', 'voc', [])
-        self.assertEqual(len(ds), 3)
-
     @patch('analytics.models.csv_loader.file_names', {'test': {'somekey': 'data/sample.csv'}})
     def test_should_raise_exception_if_config_key_does_not_exist(self):
         self.assertRaises(Exception, analytics.models.csv_loader.load_dataset, 'test', 'voc', [])
