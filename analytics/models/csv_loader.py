@@ -21,7 +21,3 @@ def trim_heading_rows(dataset, rows):
 def fetch_original_column_names(site_name, survey_type, columns):
     columns_set = column_rename[site_name][survey_type]
     return {key: val for key, val in columns_set.items() if val in columns}
-
-
-# def get_dataset_columns(dataset, columns):
-#     return 1
