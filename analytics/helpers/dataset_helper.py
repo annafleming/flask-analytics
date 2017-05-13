@@ -38,3 +38,9 @@ def lambda_get_first_present_value(row, columns):
 
 def merge_columns(dataset, columns):
     return dataset.apply(lambda x: lambda_get_first_present_value(x, columns), axis=1)
+
+
+def trim_heading_rows(dataset, rows):
+    if len(dataset) < rows:
+        raise Exception('Dataset length is less then the number of rows to remove')
+    return dataset[rows:]
