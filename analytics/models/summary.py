@@ -1,4 +1,4 @@
-from .csv_loader import load_dataset
+from .csv_loader import load_dataset, get_combined_dataset
 from ..helpers.dataset_helper import merge_datasets_vertically, get_entries_after, merge_columns
 from ..helpers.datetime_helper import subtract_from_today_days
 from ..config import Config
@@ -7,12 +7,8 @@ from ..models.column_format import change_column_scale
 
 def get_summary(site_name):
     summary = {'week': {}, 'month': {}}
-    columns = ['EndDate', 'WebsiteRating', 'ProductRating']
 
-    voc_dataset = load_dataset(site_name, Config.VOC_SURVEY, columns)
-    cc_dataset = load_dataset(site_name, Config.COMMENT_CARD_SURVEY, columns)
-    merged_dataset = merge_datasets_vertically(voc_dataset, cc_dataset)
-
+    merged_dataset = get_combined_dataset(site_name, ['EndDate', 'WebsiteRating', 'ProductRating'])
     merged_dataset = get_entries_after(merged_dataset, subtract_from_today_days(30), 'EndDate')
     merged_dataset['Rating'] = _get_unified_rating_column(merged_dataset)
     summary['month'] = _fill_summary_values(merged_dataset)
