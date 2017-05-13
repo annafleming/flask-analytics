@@ -2,6 +2,8 @@ import pandas as pd
 
 
 def get_entries_after(dataset, start_date, field_name):
+    if field_name not in dataset.columns:
+        raise Exception('Column %s is missing in the dataset' % field_name)
     return dataset[dataset[field_name] >= start_date]
 
 
@@ -14,6 +16,9 @@ def rename_columns(dataset, column_names):
 
 
 def filter_columns(dataset, columns):
+    dataset_columns = set(dataset.columns)
+    if not (set(columns)).issubset(dataset_columns):
+        raise Exception('Column(s) are missing in the dataset')
     return dataset[columns]
 
 
