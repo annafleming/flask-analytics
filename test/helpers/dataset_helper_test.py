@@ -75,5 +75,10 @@ class DatasetHelperTest(unittest.TestCase):
         ds = pd.DataFrame([["2017-05-07"], ["2017-05-08"], ["2017-05-09"]], columns=['EndDate'])
         self.assertRaises(Exception, analytics.helpers.dataset_helper.trim_heading_rows, ds, rows_number)
 
+    def test_should_drop_rows_with_missing_data(self):
+        ds = pd.DataFrame([["2017-05-07"], [None], ["2017-05-09"]], columns=['EndDate'])
+        new_ds = analytics.helpers.dataset_helper.drop_rows_with_missing_data(ds)
+        self.assertEqual(len(new_ds), 2)
+
     if __name__ == '__main__':
         unittest.main()

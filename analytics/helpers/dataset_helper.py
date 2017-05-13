@@ -44,3 +44,7 @@ def trim_heading_rows(dataset, rows):
     if len(dataset) < rows:
         raise Exception('Dataset length is less then the number of rows to remove')
     return dataset[rows:]
+
+
+def drop_rows_with_missing_data(dataset):
+    return dataset.dropna(axis=0)
