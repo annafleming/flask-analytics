@@ -48,3 +48,29 @@ def trim_heading_rows(dataset, rows):
 
 def drop_rows_with_missing_data(dataset):
     return dataset.dropna(axis=0)
+
+
+def count_values_by_grouping(ds, group_by, value_column):
+    grouped_ds = ds.groupby(group_by).size().reset_index()
+    grouped_ds.rename(columns={0: value_column}, inplace=True)
+    return grouped_ds
+
+
+def merge_datasets_horizontally(ds1, ds2, column, how, na_values):
+    result_ds = pd.merge(ds1, ds2, on=column, how=how)
+    return result_ds.fillna(na_values)
+
+
+def count_values_grouped_by_column(dataset, group_by, value_column, count_values, count_proportion):
+    count_ds = count_values_by_grouping(dataset[dataset[value_column] == count_values], group_by, value_column)
+    total_ds = count_values_by_grouping(dataset, group_by, 'Total')
+    result_ds = merge_datasets_horizontally(count_ds, total_ds, column=group_by, how='outer', na_values=0)
+    result_ds['Total'] = result_ds['Total'].astype('int64')
+    result_ds[value_column] = result_ds[value_column].astype('int64')
+    if count_proportion:
+        result_ds['Proportion'] = (result_ds['Finished'] / result_ds['Total']) * 100
+    return result_ds
+
+
+def get_dataset_column_types(ds):
+    return dict(ds.dtypes)

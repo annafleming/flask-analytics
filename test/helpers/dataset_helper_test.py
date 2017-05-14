@@ -1,6 +1,7 @@
 import unittest
 import analytics
 import pandas as pd
+import numpy as np
 import datetime
 
 
@@ -79,6 +80,73 @@ class DatasetHelperTest(unittest.TestCase):
         ds = pd.DataFrame([["2017-05-07"], [None], ["2017-05-09"]], columns=['EndDate'])
         new_ds = analytics.helpers.dataset_helper.drop_rows_with_missing_data(ds)
         self.assertEqual(len(new_ds), 2)
+
+    def test_should_count_values_by_grouping(self):
+        ds = pd.DataFrame([["2015-07-01", True],
+                           ["2015-07-01", False],
+                           ["2015-07-02", True],
+                           ["2015-07-03", False]], columns=['Date', 'Finished'])
+
+        grouped_ds = analytics.helpers.\
+            dataset_helper.\
+            count_values_by_grouping(ds, group_by='Date', value_column='Total')
+        expected_ds = pd.DataFrame([["2015-07-01", 2], ["2015-07-02", 1], ["2015-07-03", 1]],
+                                   columns=['Date', 'Total'])
+        self.assertTrue(grouped_ds.equals(expected_ds))
+
+    def test_should_merge_datasets_horizontally(self):
+        ds1 = pd.DataFrame([["2015-07-01", 1],
+                           ["2015-07-02", 1]], columns=['Date', 'Finished'])
+
+        ds2 = pd.DataFrame([["2015-07-01", 1],
+                            ["2015-07-02", 2],
+                            ["2015-07-03", 3]], columns=['Date', 'Total'])
+
+        merged_ds = analytics.helpers\
+            .dataset_helper.\
+            merge_datasets_horizontally(ds1, ds2, column='Date', how='outer',
+                                        na_values={'Total': 0, 'Finished': 0})
+
+        expected_ds = pd.DataFrame([["2015-07-01", 1.0, 1],
+                                    ["2015-07-02", 1.0, 2],
+                                    ["2015-07-03", 0.0, 3]], columns=['Date', 'Finished', 'Total'])
+        self.assertTrue(merged_ds.equals(expected_ds))
+
+    def test_should_count_values_grouped_by_column(self):
+        ds = pd.DataFrame([["2015-07-01", True],
+                           ["2015-07-01", False],
+                           ["2015-07-02", True],
+                           ["2015-07-03", False]], columns=['Date', 'Finished'])
+        compare_ds = pd.DataFrame([["2015-07-01", 1, 2], ["2015-07-02", 1, 1], ["2015-07-03", 0, 1]],
+                                  columns=['Date', 'Finished', 'Total'])
+        ds_result = analytics.helpers.dataset_helper\
+            .count_values_grouped_by_column(ds, group_by='Date',
+                                            value_column='Finished',
+                                            count_values=True,
+                                            count_proportion=False)
+        self.assertTrue(ds_result.equals(compare_ds))
+
+    def test_should_include_proportion_if_requested(self):
+        ds = pd.DataFrame([["2015-07-01", True],
+                           ["2015-07-01", False],
+                           ["2015-07-02", True],
+                           ["2015-07-03", False]], columns=['Date', 'Finished'])
+        compare_ds = pd.DataFrame([["2015-07-01", 1, 2, 50.0], ["2015-07-02", 1, 1, 100.0], ["2015-07-03", 0, 1, 0.0]],
+                                  columns=['Date', 'Finished', 'Total', 'Proportion'])
+        ds_result = analytics.helpers.dataset_helper\
+            .count_values_grouped_by_column(ds, group_by='Date',
+                                            value_column='Finished',
+                                            count_values=True,
+                                            count_proportion=True)
+        self.assertTrue(ds_result.equals(compare_ds))
+
+    def test_should_return_dataset_column_types(self):
+        ds = pd.DataFrame([["2015-07-01", True, 2.0, 6]], columns=['StringC', 'BooleanC', 'FloatC', 'IntegerC'])
+        type_lists = analytics.helpers.dataset_helper.get_dataset_column_types(ds)
+        self.assertEqual({'StringC': np.dtype('O'),
+                          'BooleanC': np.dtype('bool'),
+                          'FloatC': np.dtype('float64'),
+                          'IntegerC': np.dtype('int64')}, type_lists)
 
     if __name__ == '__main__':
         unittest.main()
