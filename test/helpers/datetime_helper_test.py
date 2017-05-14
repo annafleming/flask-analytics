@@ -27,5 +27,14 @@ class DatetimeHelperTest(unittest.TestCase):
         self.assertEqual(series_normalised.tolist(), ["2017-05-01 00:00:00", "2017-05-01 00:00:00",
                                                       "2017-05-01 00:00:00"])
 
+    def test_should_return_of_months(self):
+        date_range = analytics.helpers.\
+            datetime_helper.get_range_of_month(start_date="2017-01-01",
+                                               end_date="2017-07-01",
+                                               format="%Y-%m-%d")
+        expected_range = ["2017-01-01", "2017-02-01", "2017-03-01",
+                          "2017-04-01", "2017-05-01", "2017-06-01", "2017-07-01"]
+        self.assertEqual(date_range, expected_range)
+
     if __name__ == '__main__':
         unittest.main()

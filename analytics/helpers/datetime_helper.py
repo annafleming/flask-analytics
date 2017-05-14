@@ -1,4 +1,5 @@
 import datetime
+from dateutil.relativedelta import relativedelta
 
 
 def subtract_from_today_days(days):
@@ -13,3 +14,14 @@ def _lambda_get_first_day_of_the_month(date_str, format_in, format_out):
 
 def get_beginning_of_the_month(column, format_in="%Y-%m-%d %H:%M:%S", format_out="%Y-%m-%d"):
     return column.apply(lambda x: _lambda_get_first_day_of_the_month(x, format_in, format_out))
+
+
+def get_range_of_month(start_date, end_date, format):
+    result = []
+    start_date = datetime.datetime.strptime(start_date, format)
+    end_date = datetime.datetime.strptime(end_date, format)
+    current_date = start_date
+    while current_date <= end_date:
+        result.append(current_date.strftime("%Y-%m-%d"))
+        current_date = current_date + relativedelta(months=+1)
+    return result
