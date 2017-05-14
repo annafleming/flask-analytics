@@ -1,4 +1,5 @@
 import pandas as pd
+from ..models.settings import column_types
 
 
 def get_entries_after(dataset, start_date, field_name):
@@ -74,3 +75,15 @@ def count_values_grouped_by_column(dataset, group_by, value_column, count_values
 
 def get_dataset_column_types(ds):
     return dict(ds.dtypes)
+
+
+def set_column_types(ds, columns):
+    if not set(columns).issubset(set(column_types.keys())):
+        raise Exception('Column(s) are missing from types dictionary')
+    for column in columns:
+        if column_types[column] == 'bool':
+            bool_conversion = {'True': True, 'False': False}
+            ds[column] = ds[column].map(bool_conversion)
+        else:
+            ds[column] = ds[column].astype(column_types[column])
+    return ds

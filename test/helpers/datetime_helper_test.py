@@ -4,6 +4,7 @@ from freezegun import freeze_time
 import datetime
 import pandas as pd
 
+
 class DatetimeHelperTest(unittest.TestCase):
     def setUp(self):
         self.app = analytics.create_app('test')

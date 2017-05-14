@@ -1,6 +1,6 @@
 from .csv_loader import load_dataset, get_combined_dataset
 from ..helpers.datetime_helper import get_beginning_of_the_month
-from ..helpers.dataset_helper import count_values_grouped_by_column
+from ..helpers.dataset_helper import count_values_grouped_by_column, set_column_types
 
 
 def get_finished(site_name):
@@ -8,6 +8,7 @@ def get_finished(site_name):
     merged_dataset['EndDate'] = get_beginning_of_the_month(merged_dataset['EndDate'],
                                                            format_in="%Y-%m-%d %H:%M:%S",
                                                            format_out="%Y-%m-%d")
+    merged_dataset = set_column_types(merged_dataset, ['Finished'])
     merged_dataset = count_values_grouped_by_column(merged_dataset, 'EndDate', 'Finished', True, True)
     merged_dataset.sort_values('EndDate', inplace=True)
 

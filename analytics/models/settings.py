@@ -111,7 +111,7 @@ column_types = {
     'EndDate': 'datetime64',
     'Progress': 'int64',
     'Duration(seconds)': 'int64',
-    'Finished': 'object',
+    'Finished': 'bool',
     'LocationLatitude': 'object',
     'LocationLongitude': 'object',
     'FeedbackType': 'object',

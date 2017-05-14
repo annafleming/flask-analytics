@@ -3,7 +3,7 @@ import analytics
 import pandas as pd
 import numpy as np
 import datetime
-
+from unittest.mock import patch
 
 class DatasetHelperTest(unittest.TestCase):
     def setUp(self):
@@ -147,6 +147,20 @@ class DatasetHelperTest(unittest.TestCase):
                           'BooleanC': np.dtype('bool'),
                           'FloatC': np.dtype('float64'),
                           'IntegerC': np.dtype('int64')}, type_lists)
+
+    @patch('analytics.helpers.dataset_helper.column_types', {'BooleanC': 'bool'})
+    def test_should_set_column_types(self):
+        ds = pd.DataFrame([['True'], ['False'], ['False']], columns=['BooleanC'])
+        ds = analytics.helpers.dataset_helper.set_column_types(ds, ['BooleanC'])
+        self.assertEqual(ds['BooleanC'].dtype, np.dtype('bool'))
+        self.assertEqual(ds['BooleanC'].tolist(), [True, False, False])
+
+    @patch('analytics.helpers.dataset_helper.column_types', {})
+    def test_should_throw_exception_if_column_is_missing_from_types_dict(self):
+        ds = pd.DataFrame([['True'], ['False'], ['False']], columns=['BooleanC'])
+        with self.assertRaises(Exception) as error:
+            analytics.helpers.dataset_helper.set_column_types(ds, ['BooleanC'])
+        self.assertEqual(str(error.exception), 'Column(s) are missing from types dictionary')
 
     if __name__ == '__main__':
         unittest.main()
