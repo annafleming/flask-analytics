@@ -69,7 +69,7 @@ def count_values_grouped_by_column(dataset, group_by, value_column, count_values
     result_ds['Total'] = result_ds['Total'].astype('int64')
     result_ds[value_column] = result_ds[value_column].astype('int64')
     if count_proportion:
-        result_ds['Proportion'] = (result_ds['Finished'] / result_ds['Total']) * 100
+        result_ds['Proportion'] = (result_ds[value_column] / result_ds['Total']) * 100
     return result_ds
 
 
@@ -82,7 +82,7 @@ def set_column_types(ds, columns):
         raise Exception('Column(s) are missing from types dictionary')
     for column in columns:
         if column_types[column] == 'bool':
-            bool_conversion = {'True': True, 'False': False, True: True, False: False}
+            bool_conversion = {'True': True, 'False': False, True: True, False: False, 'Yes': True, 'No': False}
             ds[column] = ds[column].map(bool_conversion)
         else:
             ds[column] = ds[column].astype(column_types[column])

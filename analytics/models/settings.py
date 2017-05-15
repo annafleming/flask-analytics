@@ -118,7 +118,7 @@ column_types = {
     'WebsiteRating': 'object',
     'PurposeSelect': 'object',
     'PurposeText': 'object',
-    'CompletedPurpose': 'object',
+    'CompletedPurpose': 'bool',
     'WhyNotCompletedPurpose': 'object',
     'ValueAboutWebsite': 'object',
     'ProductRating': 'int64',

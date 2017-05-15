@@ -1,6 +1,7 @@
 from .csv_loader import load_dataset, get_combined_dataset
 from ..helpers.datetime_helper import get_beginning_of_the_month, get_range_of_month
 from ..helpers.dataset_helper import count_values_grouped_by_column, set_column_types
+from .settings import Config
 
 
 def get_finished(site_name):
@@ -16,6 +17,25 @@ def get_finished(site_name):
     result = {
         'keys': merged_dataset['EndDate'].tolist(),
         'finished': merged_dataset['Finished'].tolist(),
+        'total': merged_dataset['Total'].tolist(),
+        'proportion': merged_dataset['Proportion'].tolist(),
+    }
+    return result
+
+
+def get_completed(site_name):
+    merged_dataset = load_dataset(site_name, Config.VOC_SURVEY, ['EndDate', 'CompletedPurpose'])
+    merged_dataset['EndDate'] = get_beginning_of_the_month(merged_dataset['EndDate'],
+                                                           format_in="%Y-%m-%d %H:%M:%S",
+                                                           format_out="%Y-%m-%d")
+    merged_dataset = set_column_types(merged_dataset, ['CompletedPurpose'])
+    merged_dataset = count_values_grouped_by_column(merged_dataset, 'EndDate', 'CompletedPurpose', True, True)
+    merged_dataset = fill_values_if_monthly_data_is_missing(merged_dataset, 'EndDate', "%Y-%m-%d", {'CompletedPurpose': 0, 'Total': 0, 'Proportion': 0.0})
+    merged_dataset.sort_values('EndDate', inplace=True)
+
+    result = {
+        'keys': merged_dataset['EndDate'].tolist(),
+        'completed': merged_dataset['CompletedPurpose'].tolist(),
         'total': merged_dataset['Total'].tolist(),
         'proportion': merged_dataset['Proportion'].tolist(),
     }
