@@ -6,40 +6,12 @@ from .settings import Config
 
 def get_finished(site_name):
     merged_dataset = get_combined_dataset(site_name, ['EndDate', 'Finished'])
-    merged_dataset['EndDate'] = get_beginning_of_the_month(merged_dataset['EndDate'],
-                                                           format_in="%Y-%m-%d %H:%M:%S",
-                                                           format_out="%Y-%m-%d")
-    merged_dataset = set_column_types(merged_dataset, ['Finished'])
-    merged_dataset = count_values_grouped_by_column(merged_dataset, 'EndDate', 'Finished', True, True)
-    merged_dataset = fill_values_if_monthly_data_is_missing(merged_dataset, 'EndDate', "%Y-%m-%d", {'Finished': 0, 'Total': 0, 'Proportion': 0.0})
-    merged_dataset.sort_values('EndDate', inplace=True)
-
-    result = {
-        'keys': merged_dataset['EndDate'].tolist(),
-        'finished': merged_dataset['Finished'].tolist(),
-        'total': merged_dataset['Total'].tolist(),
-        'proportion': merged_dataset['Proportion'].tolist(),
-    }
-    return result
+    return calculate_proportions_by_month(merged_dataset, 'EndDate', 'Finished')
 
 
 def get_completed(site_name):
-    merged_dataset = load_dataset(site_name, Config.VOC_SURVEY, ['EndDate', 'CompletedPurpose'])
-    merged_dataset['EndDate'] = get_beginning_of_the_month(merged_dataset['EndDate'],
-                                                           format_in="%Y-%m-%d %H:%M:%S",
-                                                           format_out="%Y-%m-%d")
-    merged_dataset = set_column_types(merged_dataset, ['CompletedPurpose'])
-    merged_dataset = count_values_grouped_by_column(merged_dataset, 'EndDate', 'CompletedPurpose', True, True)
-    merged_dataset = fill_values_if_monthly_data_is_missing(merged_dataset, 'EndDate', "%Y-%m-%d", {'CompletedPurpose': 0, 'Total': 0, 'Proportion': 0.0})
-    merged_dataset.sort_values('EndDate', inplace=True)
-
-    result = {
-        'keys': merged_dataset['EndDate'].tolist(),
-        'completed': merged_dataset['CompletedPurpose'].tolist(),
-        'total': merged_dataset['Total'].tolist(),
-        'proportion': merged_dataset['Proportion'].tolist(),
-    }
-    return result
+    ds = load_dataset(site_name, Config.VOC_SURVEY, ['EndDate', 'CompletedPurpose'])
+    return calculate_proportions_by_month(ds, 'EndDate', 'CompletedPurpose')
 
 
 def fill_values_if_monthly_data_is_missing(ds, date_column, format, values):
@@ -50,3 +22,20 @@ def fill_values_if_monthly_data_is_missing(ds, date_column, format, values):
             row_dict[date_column] = date_value
             ds = ds.append(row_dict, ignore_index=True)
     return ds
+
+
+def calculate_proportions_by_month(ds, date_column, value_column):
+    ds[date_column] = get_beginning_of_the_month(ds[date_column], format_in="%Y-%m-%d %H:%M:%S",
+                                                 format_out="%Y-%m-%d")
+    ds = set_column_types(ds, [value_column])
+    ds = count_values_grouped_by_column(ds, date_column, value_column, True, True)
+    ds = fill_values_if_monthly_data_is_missing(ds,
+                                                date_column, "%Y-%m-%d",
+                                                {value_column: 0, 'Total': 0, 'Proportion': 0.0})
+    ds.sort_values(date_column, inplace=True)
+    return {
+        'Keys': ds[date_column].tolist(),
+        value_column: ds[value_column].tolist(),
+        'Total': ds['Total'].tolist(),
+        'Proportion': ds['Proportion'].tolist(),
+    }
