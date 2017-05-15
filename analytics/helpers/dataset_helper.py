@@ -83,7 +83,12 @@ def set_column_types(ds, columns):
     for column in columns:
         if column_types[column] == 'bool':
             bool_conversion = {'True': True, 'False': False, True: True, False: False, 'Yes': True, 'No': False}
-            ds[column] = ds[column].map(bool_conversion)
+            ds[column] = convert_column_values(ds[column], bool_conversion)
         else:
             ds[column] = ds[column].astype(column_types[column])
     return ds
+
+
+def convert_column_values(column, settings):
+    return column.map(settings)
+

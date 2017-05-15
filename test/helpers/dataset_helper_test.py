@@ -162,5 +162,14 @@ class DatasetHelperTest(unittest.TestCase):
             analytics.helpers.dataset_helper.set_column_types(ds, ['BooleanC'])
         self.assertEqual(str(error.exception), 'Column(s) are missing from types dictionary')
 
+    def test_should_convert_column_values(self):
+        ds = pd.DataFrame([['True'], ['False'], ['False'], [True], ['Yes'], ['No']], columns=['BooleanC'])
+        bool_conversion = {'True': True, 'False': False, True: True, False: False, 'Yes': True, 'No': False}
+
+        ds['BooleanC'] = analytics.helpers.dataset_helper.\
+            convert_column_values(ds['BooleanC'], bool_conversion)
+        expected_values = [True, False, False, True, True, False]
+        self.assertEqual(ds['BooleanC'].tolist(), expected_values)
+
     if __name__ == '__main__':
         unittest.main()
