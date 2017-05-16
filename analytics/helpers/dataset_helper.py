@@ -92,3 +92,7 @@ def set_column_types(ds, columns):
 def convert_column_values(column, settings):
     return column.map(settings)
 
+
+def aggregate_data_by_column_values(dataset, key_column, values_column):
+    return dataset
+

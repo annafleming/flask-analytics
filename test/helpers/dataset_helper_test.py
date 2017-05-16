@@ -171,5 +171,27 @@ class DatasetHelperTest(unittest.TestCase):
         expected_values = [True, False, False, True, True, False]
         self.assertEqual(ds['BooleanC'].tolist(), expected_values)
 
+    def test_should_aggregate_data_by_column_values(self):
+        ds = pd.DataFrame([["2015-07-01", 'Red'],
+                           ["2015-07-01", 'Red'],
+                           ["2015-07-01", 'Red'],
+                           ["2015-07-01", 'Blue'],
+                           ["2015-07-01", 'Blue'],
+                           ["2015-07-01", 'Blue'],
+                           ["2015-07-02", 'Blue'],
+                           ["2015-07-02", 'Red'],
+                           ], columns=['Date', 'Color'])
+        expected_ds = pd.DataFrame([["2015-07-01", 3, 3],
+                                    ["2015-07-02", 1, 1],
+                                    ], columns=['Date', 'Red', 'Blue'])
+
+        result_ds = analytics.helpers.\
+            dataset_helper.aggregate_data_by_column_values(dataset=ds,
+                                                           key_column='Date',
+                                                           values_column='Color')
+
+        self.assertTrue(result_ds.equals(expected_ds))
+
+
     if __name__ == '__main__':
         unittest.main()
