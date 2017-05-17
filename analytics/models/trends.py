@@ -1,6 +1,6 @@
 from .csv_loader import load_dataset, get_combined_dataset
 from ..helpers.datetime_helper import get_beginning_of_the_month, get_range_of_month
-from ..helpers.dataset_helper import count_values_grouped_by_column, set_column_types
+from ..helpers.dataset_helper import count_values_grouped_by_column, set_column_types, count_column_values_frequency
 from .settings import Config
 
 
@@ -38,4 +38,22 @@ def calculate_proportions_by_month(ds, date_column, value_column):
         value_column: ds[value_column].tolist(),
         'Total': ds['Total'].tolist(),
         'Proportion': ds['Proportion'].tolist(),
+    }
+
+
+def get_feedback_types(site_name):
+    merged_dataset = get_combined_dataset(site_name, ['EndDate', 'FeedbackType'])
+    merged_dataset['EndDate'] = get_beginning_of_the_month(merged_dataset['EndDate'],
+                                                           format_in="%Y-%m-%d %H:%M:%S",
+                                                           format_out="%Y-%m-%d")
+    result_ds = count_column_values_frequency(merged_dataset, 'EndDate', 'FeedbackType')
+    result_ds['Products'] = result_ds['Products'] + result_ds['Product(s)']
+    result_ds.drop(['Product(s)'], axis=1, inplace=True)
+    result_ds.sort_values('EndDate', inplace=True)
+    return {
+        'Keys': result_ds['EndDate'].tolist(),
+        'Types': {
+            'Website Experience': result_ds['Website Experience'].tolist(),
+            'Products': result_ds['Products'].tolist(),
+        }
     }
