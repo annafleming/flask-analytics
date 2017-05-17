@@ -171,7 +171,7 @@ class DatasetHelperTest(unittest.TestCase):
         expected_values = [True, False, False, True, True, False]
         self.assertEqual(ds['BooleanC'].tolist(), expected_values)
 
-    def test_should_aggregate_data_by_column_values(self):
+    def test_should_count_column_values_frequency(self):
         ds = pd.DataFrame([["2015-07-01", 'Red'],
                            ["2015-07-01", 'Red'],
                            ["2015-07-01", 'Red'],
@@ -186,7 +186,7 @@ class DatasetHelperTest(unittest.TestCase):
                                     ], columns=['Date', 'Blue', 'Red'])
 
         result_ds = analytics.helpers.\
-            dataset_helper.aggregate_data_by_column_values(dataset=ds,
+            dataset_helper.count_column_values_frequency(dataset=ds,
                                                            key_column='Date',
                                                            values_column='Color')
         self.assertTrue(result_ds.equals(expected_ds))

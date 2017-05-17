@@ -98,7 +98,7 @@ def lambda_fill_count_values(row, column):
     return row
 
 
-def aggregate_data_by_column_values(dataset, key_column, values_column):
+def count_column_values_frequency(dataset, key_column, values_column):
     agg_dataset = dataset.pivot_table(index=[key_column],
                                       columns=values_column,
                                       aggfunc=len,
