@@ -183,15 +183,13 @@ class DatasetHelperTest(unittest.TestCase):
                            ], columns=['Date', 'Color'])
         expected_ds = pd.DataFrame([["2015-07-01", 3, 3],
                                     ["2015-07-02", 1, 1],
-                                    ], columns=['Date', 'Red', 'Blue'])
+                                    ], columns=['Date', 'Blue', 'Red'])
 
         result_ds = analytics.helpers.\
             dataset_helper.aggregate_data_by_column_values(dataset=ds,
                                                            key_column='Date',
                                                            values_column='Color')
-
         self.assertTrue(result_ds.equals(expected_ds))
-
 
     if __name__ == '__main__':
         unittest.main()

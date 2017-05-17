@@ -93,6 +93,16 @@ def convert_column_values(column, settings):
     return column.map(settings)
 
 
+def lambda_fill_count_values(row, column):
+    row[row[column]] = 1
+    return row
+
+
 def aggregate_data_by_column_values(dataset, key_column, values_column):
-    return dataset
+    agg_dataset = dataset.pivot_table(index=[key_column],
+                                      columns=values_column,
+                                      aggfunc=len,
+                                      fill_value=0).reset_index()
+    agg_dataset.columns.name = None
+    return agg_dataset
 
