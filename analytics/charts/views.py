@@ -1,5 +1,5 @@
 from . import charts
-from ..models.trends import get_finished, get_completed, get_feedback_types
+from ..models.trends import get_finished, get_completed, get_feedback_types, get_website_rating
 import json
 
 
@@ -25,5 +25,13 @@ def feedback_type():
     trends = {
         'petsafe': get_feedback_types('petsafe'),
         'sportdog': get_feedback_types('sportdog'),
+    }
+    return json.dumps(trends)
+
+@charts.route('/website_rating')
+def website_rating():
+    trends = {
+        'petsafe': get_website_rating('petsafe'),
+        'sportdog': get_website_rating('sportdog'),
     }
     return json.dumps(trends)

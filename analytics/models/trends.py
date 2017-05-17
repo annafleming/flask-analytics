@@ -57,3 +57,7 @@ def get_feedback_types(site_name):
             'Products': result_ds['Products'].tolist(),
         }
     }
+
+
+def get_website_rating(site_name):
+    return 1
