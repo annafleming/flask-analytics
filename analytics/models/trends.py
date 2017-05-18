@@ -80,3 +80,28 @@ def get_website_rating(site_name):
     for column in unique_rating_values:
         result[column] = result_ds[column].tolist(),
     return result
+
+
+def get_product_rating(site_name):
+    merged_dataset = get_combined_dataset(site_name, ['EndDate', 'ProductRating']).dropna(axis=0)
+    unique_rating_values = merged_dataset['ProductRating'].unique()
+    column_default_values = {column: 0 for column in unique_rating_values}
+
+    merged_dataset['EndDate'] = get_beginning_of_the_month(merged_dataset['EndDate'],
+                                                           format_in="%Y-%m-%d %H:%M:%S",
+                                                           format_out="%Y-%m-%d")
+
+    result_ds = count_column_values_frequency(merged_dataset, 'EndDate', 'ProductRating')
+    result_ds = fill_values_if_monthly_data_is_missing(result_ds,
+                                                       'EndDate',
+                                                       "%Y-%m-%d",
+                                                       column_default_values)
+    result_ds = result_ds.sort_values('EndDate')
+    result = {
+        'Keys': result_ds['EndDate'].tolist(),
+    }
+    for column in unique_rating_values:
+        result[column] = result_ds[column].tolist(),
+    return result
+
+
