@@ -4,3 +4,6 @@
 /node_modules/
 __pycache__/
 *.py[cod]
+/mix-manifest.json
+/analytics/static/js/app.js
+/analytics/static/css/app.css
