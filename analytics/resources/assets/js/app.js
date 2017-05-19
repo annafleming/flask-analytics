@@ -7,5 +7,6 @@ new Vue({
     el: '#app',
     data: {
         item: 'Testing vue'
-    }
+    },
+    delimiters: ['[[',']]']
 })
