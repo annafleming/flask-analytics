@@ -7,3 +7,4 @@ __pycache__/
 /mix-manifest.json
 /analytics/static/js/app.js
 /analytics/static/css/app.css
+/analytics/static/vendor/

@@ -12,7 +12,7 @@
 
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
     <link href="static/css/sb-admin.css" rel="stylesheet">
-    <link href="static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="static/vendor/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,60 +26,59 @@
 <body>
 
 <div id="wrapper">
+    <div id="app">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">DataPup</a>
+            </div>
 
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">DataPup</a>
-        </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a href="/"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i
+                                class="fa fa-fw fa-bar-chart-o"></i> Charts <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                            <li>
+                                <a href="/charts/finished">Finished the survey</a>
+                            </li>
+                            <li>
+                                <a href="#">Completed the purpose</a>
+                            </li>
+                            <li>
+                                <a href="#">Product vs Website</a>
+                            </li>
+                            <li>
+                                <a href="#">Product rating</a>
+                            </li>
+                            <li>
+                                <a href="#">Website rating</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav side-nav">
-                <li class="active">
-                    <a href="/"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                </li>
-                <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i
-                            class="fa fa-fw fa-bar-chart-o"></i> Charts <i class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="demo" class="collapse">
-                        <li>
-                            <a href="/charts/finished">Finished the survey</a>
-                        </li>
-                        <li>
-                            <a href="#">Completed the purpose</a>
-                        </li>
-                        <li>
-                            <a href="#">Product vs Website</a>
-                        </li>
-                        <li>
-                            <a href="#">Product rating</a>
-                        </li>
-                        <li>
-                            <a href="#">Website rating</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div id="page-wrapper">
-        <div class="container-fluid">
-        {% block content %}{% endblock %}
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                {% block content %}{% endblock %}
+            </div>
         </div>
     </div>
-
 </div>
 
 <script src="static/js/jquery.js"></script>
 <script src="static/js/bootstrap.min.js"></script>
-<script src="static/js/vendor.js"></script>
 <script src="static/js/app.js"></script>
 
 </body>
