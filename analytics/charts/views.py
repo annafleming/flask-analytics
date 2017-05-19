@@ -19,7 +19,7 @@ def finished():
         'petsafe': get_finished('petsafe'),
         'sportdog': get_finished('sportdog'),
     }
-    return json.dumps(trends)
+    return jsonify(trends)
 
 
 @charts.route('/completed')
@@ -28,7 +28,7 @@ def completed():
         'petsafe': get_completed('petsafe'),
         'sportdog': get_completed('sportdog'),
     }
-    return json.dumps(trends)
+    return jsonify(trends)
 
 @charts.route('/feedback_type')
 def feedback_type():
@@ -36,7 +36,7 @@ def feedback_type():
         'petsafe': get_feedback_types('petsafe'),
         'sportdog': get_feedback_types('sportdog'),
     }
-    return json.dumps(trends)
+    return jsonify(trends)
 
 @charts.route('/website_rating')
 def website_rating():
@@ -44,7 +44,7 @@ def website_rating():
         'petsafe': get_website_rating('petsafe'),
         'sportdog': get_website_rating('sportdog'),
     }
-    return json.dumps(trends)
+    return jsonify(trends)
 
 
 @charts.route('/product_rating')
@@ -53,4 +53,4 @@ def product_rating():
         'petsafe': get_product_rating('petsafe'),
         'sportdog': get_product_rating('sportdog'),
     }
-    return json.dumps(trends)
+    return jsonify(trends)
