@@ -1,7 +1,17 @@
 from . import charts
 from ..models.trends import get_finished, get_completed, get_feedback_types, get_website_rating, get_product_rating
+from ..models.summary import get_summary
 import json
+from flask import jsonify
 
+
+@charts.route('/summary')
+def summary():
+    trends = {
+        'petsafe': get_summary('petsafe'),
+        'sportdog': get_summary('sportdog'),
+    }
+    return jsonify(trends)
 
 @charts.route('/finished')
 def finished():

@@ -6,10 +6,7 @@ from ..config import Config
 
 @main.route('/')
 def index():
-    petsafe = get_summary(Config.PETSAFE_APP)
-    sportdog = get_summary(Config.SPORTDOG_APP)
-    return render_template('index.html', petsafe=petsafe, sportdog=sportdog)
-
+    return render_template('index.html')
 
 @main.app_errorhandler(404)
 def page_not_found(e):
