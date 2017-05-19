@@ -10,6 +10,10 @@ let routes = [
         component : require('./components/FinishedSurvey')
     },
     {
+        path: '/feedback_type',
+        component : require('./components/FeedbackType')
+    },
+    {
         path: '/completed_survey',
         component : require('./components/CompletedSurvey')
     },
