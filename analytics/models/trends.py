@@ -101,7 +101,7 @@ def get_product_rating(site_name):
         'Keys': result_ds['EndDate'].tolist(),
     }
     for column in unique_rating_values:
-        result[column] = result_ds[column].tolist(),
+        result[str(column)] = result_ds[column].tolist()
     return result
 
 
