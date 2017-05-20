@@ -18,8 +18,11 @@
                     <div class="well" v-if="info.petsafe && info.petsafe.Keys && info.petsafe.Proportion">
                       <line-graph :labels="info.petsafe.Keys" :values="info.petsafe.Proportion"></line-graph>
                     </div>
-                    <div class="well">
-                      Chart real values
+                    <div class="well" v-if="info.petsafe && info.petsafe.Keys && info.petsafe.Finished">
+                      <bar-graph :labels="info.petsafe.Keys"
+                      :values="[info.petsafe.Total, info.petsafe.Finished]"
+                      :colors="['#D3C4BE', '#EBCFC4']"
+                      :names="['Total', 'Finished']"></bar-graph>
                     </div>
                 </div>
             </div>
@@ -36,8 +39,11 @@
                     <div class="well" v-if="info.sportdog && info.sportdog.Keys && info.sportdog.Proportion">
                       <line-graph :labels="info.sportdog.Keys" :values="info.sportdog.Proportion"></line-graph>
                     </div>
-                    <div class="well">
-                      Chart real values
+                    <div class="well" v-if="info.sportdog && info.sportdog.Keys && info.sportdog.Finished">
+                      <bar-graph :labels="info.sportdog.Keys"
+                      :values="[info.sportdog.Total, info.sportdog.Finished]"
+                      :colors="['#D3C4BE', '#F4DAC2']"
+                      :names="['Total', 'Finished']"></bar-graph>
                     </div>
                 </div>
             </div>
@@ -50,9 +56,10 @@
 <script>
 
 import LineGraph from './graphs/LineGraph'
+import BarGraph from './graphs/BarGraph'
 
   export default{
-    components: { LineGraph },
+    components: { LineGraph, BarGraph },
 
     data(){
       return {
