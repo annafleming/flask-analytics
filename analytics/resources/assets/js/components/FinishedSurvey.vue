@@ -16,7 +16,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="well" v-if="info.petsafe.Keys && info.petsafe.Proportion">
-                      <line-graph id="petsafe-finished-proportion" :labels="info.petsafe.Keys" :values="info.petsafe.Proportion"></line-graph>
+                      <line-graph :labels="info.petsafe.Keys" :values="info.petsafe.Proportion"></line-graph>
                     </div>
                     <div class="well">
                       Chart real values
@@ -34,7 +34,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="well" v-if="info.sportdog.Keys && info.sportdog.Proportion">
-                      <line-graph id="sportdog-finished-proportion" :labels="info.sportdog.Keys" :values="info.sportdog.Proportion"></line-graph>
+                      <line-graph :labels="info.sportdog.Keys" :values="info.sportdog.Proportion"></line-graph>
                     </div>
                     <div class="well">
                       Chart real values
