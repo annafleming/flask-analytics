@@ -1,5 +1,5 @@
 <template>
-    <canvas></canvas>
+    <canvas ref="canvas"></canvas>
 </template>
 
 <script>
@@ -11,7 +11,7 @@
       }
     },
     mounted(){
-      let context = this.$el.getContext('2d');
+      let context = this.$refs.canvas.getContext('2d');
       var chartData = {
           labels: this.labels,
           datasets: [
