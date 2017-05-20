@@ -15,7 +15,7 @@ let routes = [
     },
     {
         path: '/completed_survey',
-        component : require('./components/CompletedSurvey')
+        component : require('./components/CompletedPurpose')
     },
     {
         path: '/website_rating',
