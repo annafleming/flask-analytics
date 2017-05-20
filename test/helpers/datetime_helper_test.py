@@ -36,5 +36,12 @@ class DatetimeHelperTest(unittest.TestCase):
                           "2017-04-01", "2017-05-01", "2017-06-01", "2017-07-01"]
         self.assertEqual(date_range, expected_range)
 
+    def test_should_convert_date_column_to_passed_format(self):
+        ds = pd.DataFrame([["2017-05-01"], ["2017-06-01"], ["2017-07-01"]], columns=['EndDate'])
+        expected_ds = pd.DataFrame([["May 17"], ["Jun 17"], ["Jul 17"]], columns=['EndDate'])
+        ds['EndDate'] = analytics.helpers.datetime_helper.\
+            convert_date_column(ds['EndDate'], format_in="%Y-%m-%d", format_out="%b %y")
+        self.assertTrue(ds.equals(expected_ds))
+
     if __name__ == '__main__':
         unittest.main()

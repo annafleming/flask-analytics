@@ -1,5 +1,5 @@
 from .csv_loader import load_dataset, get_combined_dataset
-from ..helpers.datetime_helper import get_beginning_of_the_month, get_range_of_month
+from ..helpers.datetime_helper import get_beginning_of_the_month, get_range_of_month, convert_date_column
 from ..helpers.dataset_helper import count_values_grouped_by_column, set_column_types, count_column_values_frequency
 from .settings import Config
 
@@ -33,6 +33,8 @@ def calculate_proportions_by_month(ds, date_column, value_column):
                                                 date_column, "%Y-%m-%d",
                                                 {value_column: 0, 'Total': 0, 'Proportion': 0.0})
     ds.sort_values(date_column, inplace=True)
+    ds[date_column] = convert_date_column(ds[date_column], format_in="%Y-%m-%d", format_out="%b %y")
+
     return {
         'Keys': ds[date_column].tolist(),
         value_column: ds[value_column].tolist(),

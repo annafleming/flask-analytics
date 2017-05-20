@@ -25,3 +25,12 @@ def get_range_of_month(start_date, end_date, format):
         result.append(current_date.strftime("%Y-%m-%d"))
         current_date = current_date + relativedelta(months=+1)
     return result
+
+
+def _lambda_convert_date_format(date_str, format_in, format_out):
+    original_date = datetime.datetime.strptime(str(date_str), format_in)
+    return original_date.strftime(format_out)
+
+
+def convert_date_column(column, format_in, format_out):
+    return column.apply(lambda x: _lambda_convert_date_format(x, format_in, format_out))
