@@ -16,7 +16,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="well" v-if="info.petsafe && info.petsafe.Keys && info.petsafe.Proportion">
-                      <line-graph :labels="info.petsafe.Keys" :values="info.petsafe.Proportion"></line-graph>
+                      <line-graph :labels="info.petsafe.Keys" :values="[info.petsafe.Proportion]"></line-graph>
                     </div>
                     <div class="well" v-if="info.petsafe && info.petsafe.Keys && info.petsafe.CompletedPurpose">
                       <bar-graph :labels="info.petsafe.Keys"
@@ -37,7 +37,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="well" v-if="info.sportdog && info.sportdog.Keys && info.sportdog.Proportion">
-                      <line-graph :labels="info.sportdog.Keys" :values="info.sportdog.Proportion"></line-graph>
+                      <line-graph :labels="info.sportdog.Keys" :values="[info.sportdog.Proportion]"></line-graph>
                     </div>
                     <div class="well" v-if="info.sportdog && info.sportdog.Keys && info.sportdog.CompletedPurpose">
                       <bar-graph :labels="info.sportdog.Keys"
