@@ -19,10 +19,16 @@
                       <line-graph :labels="info.petsafe.Keys" :values="[info.petsafe.Proportion]"></line-graph>
                     </div>
                     <div class="well" v-if="info.petsafe && info.petsafe.Keys && info.petsafe.CompletedPurpose">
-                      <bar-graph :labels="info.petsafe.Keys"
-                      :values="[info.petsafe.Total, info.petsafe.CompletedPurpose]"
-                      :colors="['#D3C4BE', '#EBCFC4']"
-                      :names="['Total', 'Completed purpose']"></bar-graph>
+                      <bar-graph :labels="info.sportdog.Keys" :values="[
+                      {
+                        data: info.petsafe.Total,
+                        color: '#D3C4BE',
+                        name: 'Total'
+                      },{
+                        data: info.petsafe.CompletedPurpose,
+                        color: '#EBCFC4',
+                        name: 'CompletedPurpose'
+                      }]"></bar-graph>
                     </div>
                 </div>
             </div>
@@ -40,10 +46,16 @@
                       <line-graph :labels="info.sportdog.Keys" :values="[info.sportdog.Proportion]"></line-graph>
                     </div>
                     <div class="well" v-if="info.sportdog && info.sportdog.Keys && info.sportdog.CompletedPurpose">
-                      <bar-graph :labels="info.sportdog.Keys"
-                      :values="[info.sportdog.Total, info.sportdog.CompletedPurpose]"
-                      :colors="['#D3C4BE', '#F4DAC2']"
-                      :names="['Total', 'Completed purpose']"></bar-graph>
+                      <bar-graph :labels="info.sportdog.Keys" :values="[
+                      {
+                        data: info.sportdog.Total,
+                        color: '#D3C4BE',
+                        name: 'Total'
+                      },{
+                        data: info.sportdog.CompletedPurpose,
+                        color: '#EBCFC4',
+                        name: 'CompletedPurpose'
+                      }]"></bar-graph>
                     </div>
                 </div>
             </div>

@@ -5,30 +5,36 @@
 <script>
 
   export default{
-    props: [ 'labels', 'values', 'colors', 'names'],
+    props: [ 'labels', 'values'],
     data(){
       return {
       }
     },
     mounted(){
+
       let context = this.$refs.canvas.getContext('2d');
       var chartData = {
           labels: this.labels,
           datasets: []
       };
 
-      this.values.forEach((element, index, array) => {
-        chartData.datasets.push({
-          data: element,
-          backgroundColor: this.colors[index],
-          label: this.names[index],
-        });
+      this.values.forEach((values, index, array) => {
+        let dataset = {
+          data: values.data,
+        };
+        if (values['color']){
+          dataset['backgroundColor'] = values['color'];
+        }
+        if (values['name']){
+          dataset['label'] = values['name'];
+        }
+        chartData.datasets.push(dataset);
       });
 
       new Chart(context, {
         type: 'bar',
         data: chartData,
-        });
+      });
     }
   }
 </script>

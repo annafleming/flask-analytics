@@ -19,10 +19,16 @@
                       <line-graph :labels="info.petsafe.Keys" :values="[info.petsafe.Proportion]"></line-graph>
                     </div>
                     <div class="well" v-if="info.petsafe && info.petsafe.Keys && info.petsafe.Finished">
-                      <bar-graph :labels="info.petsafe.Keys"
-                      :values="[info.petsafe.Total, info.petsafe.Finished]"
-                      :colors="['#D3C4BE', '#EBCFC4']"
-                      :names="['Total', 'Finished']"></bar-graph>
+                      <bar-graph :labels="info.petsafe.Keys" :values="[
+                      {
+                        data: info.petsafe.Total,
+                        color: '#D3C4BE',
+                        name: 'Total'
+                      },{
+                        data: info.petsafe.Finished,
+                        color: '#F4DAC2',
+                        name: 'Finished'
+                      }]"></bar-graph>
                     </div>
                 </div>
             </div>
@@ -40,10 +46,16 @@
                       <line-graph :labels="info.sportdog.Keys" :values="[info.sportdog.Proportion]"></line-graph>
                     </div>
                     <div class="well" v-if="info.sportdog && info.sportdog.Keys && info.sportdog.Finished">
-                      <bar-graph :labels="info.sportdog.Keys"
-                      :values="[info.sportdog.Total, info.sportdog.Finished]"
-                      :colors="['#D3C4BE', '#F4DAC2']"
-                      :names="['Total', 'Finished']"></bar-graph>
+                      <bar-graph :labels="info.sportdog.Keys" :values="[
+                      {
+                        data: info.sportdog.Total,
+                        color: '#D3C4BE',
+                        name: 'Total'
+                      },{
+                        data: info.sportdog.Finished,
+                        color: '#EBCFC4',
+                        name: 'Finished'
+                      }]"></bar-graph>
                     </div>
                 </div>
             </div>
@@ -70,6 +82,6 @@ import BarGraph from './graphs/BarGraph'
       axios.get('/charts/finished').then(response =>{
         this.info = response.data
       });
-    }
+    },
   }
 </script>
