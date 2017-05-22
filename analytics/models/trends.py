@@ -54,10 +54,8 @@ def get_feedback_types(site_name):
     result_ds.sort_values('EndDate', inplace=True)
     return {
         'Keys': result_ds['EndDate'].tolist(),
-        'Types': {
-            'Website Experience': result_ds['Website Experience'].tolist(),
-            'Products': result_ds['Products'].tolist(),
-        }
+        'Website Experience': result_ds['Website Experience'].tolist(),
+        'Products': result_ds['Products'].tolist(),
     }
 
 
