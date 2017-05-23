@@ -5,13 +5,27 @@
 <script>
 
   export default{
-    props: [ 'labels', 'values'],
+    props: {
+      labels: Array,
+      values: Array,
+      ystack: {
+        type: Boolean,
+        default: false,
+      }
+    },
+
     data(){
       return {
       }
     },
     mounted(){
-
+      let options = {
+        scales: {
+            yAxes: [{
+                stacked: this.ystack
+            }],
+        }
+      };
       let context = this.$refs.canvas.getContext('2d');
       var chartData = {
           labels: this.labels,
@@ -34,6 +48,7 @@
       new Chart(context, {
         type: 'bar',
         data: chartData,
+        options: options,
       });
     }
   }
