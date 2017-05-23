@@ -75,9 +75,11 @@ def get_website_rating(site_name):
                                                        column_default_values)
     result_ds = result_ds.sort_values('EndDate')
     result_ds['EndDate'] = convert_date_column(result_ds['EndDate'], format_in="%Y-%m-%d", format_out="%b %y")
-
+    result_ds['Average'] = (result_ds['Very Good'] * 5 + result_ds['Good'] * 4 + result_ds['Fair'] * 3 + result_ds['Bad'] * 2+ result_ds['Very Bad'])/(result_ds['Very Good'] + result_ds['Good'] + result_ds['Fair'] + result_ds['Bad'] + result_ds['Very Bad'])
+    result_ds['Average'].fillna(0, inplace=True)
     result = {
         'Keys': result_ds['EndDate'].tolist(),
+        'Average': result_ds['Average'].tolist(),
     }
     for column in unique_rating_values:
         result[column] = result_ds[column].tolist(),
