@@ -61,7 +61,7 @@ def get_feedback_types(site_name):
 
 def get_website_rating(site_name):
     merged_dataset = get_combined_dataset(site_name, ['EndDate', 'WebsiteRating']).dropna(axis=0)
-    unique_rating_values = merged_dataset['WebsiteRating'].unique()
+    unique_rating_values = merged_dataset['WebsiteRating'].unique().tolist()
     column_default_values = {column: 0 for column in unique_rating_values}
 
     merged_dataset['EndDate'] = get_beginning_of_the_month(merged_dataset['EndDate'],
@@ -80,9 +80,18 @@ def get_website_rating(site_name):
     result = {
         'Keys': result_ds['EndDate'].tolist(),
         'Average': result_ds['Average'].tolist(),
+        'Very Bad': result_ds['Very Bad'].tolist(),
+        'Bad': result_ds['Bad'].tolist(),
+        'Fair': result_ds['Fair'].tolist(),
+        'Good': result_ds['Good'].tolist(),
+        'Very Good': result_ds['Very Good'].tolist(),
     }
-    for column in unique_rating_values:
-        result[column] = result_ds[column].tolist(),
+
+    #TODO FIX
+    # result_ds.to_csv('data/'+site_name+'.csv')
+    # for column in unique_rating_values:
+    #     print(column)
+    #     result[column] = result_ds[column].tolist(),
     return result
 
 

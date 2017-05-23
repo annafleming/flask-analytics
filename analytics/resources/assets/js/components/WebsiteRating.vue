@@ -26,18 +26,34 @@
                         5: 'Very Good'
                       }"></line-graph>
                     </div>
-                    <!-- <div class="well" v-if="info.petsafe && info.petsafe.Keys && info.petsafe.Finished">
-                      <bar-graph :labels="info.petsafe.Keys" :values="[
+                    <div class="well" v-if="info.petsafe && info.petsafe.Keys">
+                      <bar-graph :ystack="true" :labels="info.petsafe.Keys" :values="[
                       {
-                        data: info.petsafe.Total,
-                        color: '#D3C4BE',
-                        name: 'Total'
-                      },{
-                        data: info.petsafe.Finished,
-                        color: '#F4DAC2',
-                        name: 'Finished'
+                        data: info.petsafe['Very Bad'],
+                        color: '#C0504D',
+                        name: 'Very Bad'
+                      },
+                      {
+                        data: info.petsafe['Bad'],
+                        color: '#D99694',
+                        name: 'Bad'
+                      },
+                      {
+                        data: info.petsafe['Fair'],
+                        color: '#FFC000',
+                        name: 'Fair'
+                      },
+                      {
+                        data: info.petsafe['Good'],
+                        color: '#77933C',
+                        name: 'Good'
+                      },
+                      {
+                        data: info.petsafe['Very Good'],
+                        color: '#4F6228',
+                        name: 'Very Good'
                       }]"></bar-graph>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,18 +77,32 @@
                         5: 'Very Good'
                       }"></line-graph>
                     </div>
-                    <!-- <div class="well" v-if="info.sportdog && info.sportdog.Keys && info.sportdog.Finished">
-                      <bar-graph :labels="info.sportdog.Keys" :values="[
-                      {
-                        data: info.sportdog.Total,
-                        color: '#D3C4BE',
-                        name: 'Total'
-                      },{
-                        data: info.sportdog.Finished,
-                        color: '#EBCFC4',
-                        name: 'Finished'
-                      }]"></bar-graph>
-                    </div> -->
+                    <bar-graph :ystack="true" :labels="info.sportdog.Keys" :values="[
+                    {
+                      data: info.sportdog['Very Bad'],
+                      color: '#C0504D',
+                      name: 'Very Bad'
+                    },
+                    {
+                      data: info.sportdog['Bad'],
+                      color: '#D99694',
+                      name: 'Bad'
+                    },
+                    {
+                      data: info.sportdog['Fair'],
+                      color: '#FFC000',
+                      name: 'Fair'
+                    },
+                    {
+                      data: info.sportdog['Good'],
+                      color: '#77933C',
+                      name: 'Good'
+                    },
+                    {
+                      data: info.sportdog['Very Good'],
+                      color: '#4F6228',
+                      name: 'Very Good'
+                    }]"></bar-graph>
                 </div>
             </div>
         </div>
