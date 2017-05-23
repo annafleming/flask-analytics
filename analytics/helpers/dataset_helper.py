@@ -70,6 +70,7 @@ def count_values_grouped_by_column(dataset, group_by, value_column, count_values
     result_ds[value_column] = result_ds[value_column].astype('int64')
     if count_proportion:
         result_ds['Proportion'] = (result_ds[value_column] / result_ds['Total']) * 100
+        result_ds['Proportion'] = result_ds['Proportion'].apply(lambda x: float("{0:.2f}".format(x)))
     return result_ds
 
 
