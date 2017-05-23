@@ -74,6 +74,8 @@ def get_website_rating(site_name):
                                                        "%Y-%m-%d",
                                                        column_default_values)
     result_ds = result_ds.sort_values('EndDate')
+    result_ds['EndDate'] = convert_date_column(result_ds['EndDate'], format_in="%Y-%m-%d", format_out="%b %y")
+
     result = {
         'Keys': result_ds['EndDate'].tolist(),
     }
@@ -103,5 +105,3 @@ def get_product_rating(site_name):
     for column in unique_rating_values:
         result[str(column)] = result_ds[column].tolist()
     return result
-
-
