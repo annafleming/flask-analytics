@@ -77,6 +77,7 @@
                         5: 'Very Good'
                       }"></line-graph>
                     </div>
+                    <div class="well" v-if="info.sportdog && info.sportdog.Keys">
                     <bar-graph :ystack="true" :labels="info.sportdog.Keys" :values="[
                     {
                       data: info.sportdog['Very Bad'],
@@ -103,6 +104,7 @@
                       color: '#4F6228',
                       name: 'Very Good'
                     }]"></bar-graph>
+                </div>
                 </div>
             </div>
         </div>
