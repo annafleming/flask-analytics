@@ -109,10 +109,11 @@ def count_column_values_frequency(dataset, key_column, values_column):
 
 
 def count_average_value_in_row(ds, column_weights):
-    column_names = list(column_weights.keys())
+    column_names = list(set(list(column_weights.keys())) & set(ds.columns))
     ds['Average'] = 0
     for column in column_weights:
-        if column in column_weights:
+        if column in ds:
             ds['Average'] = ds['Average'] + column_weights[column] * ds[column]
     ds['Average'] = ds['Average'] / ds[column_names].sum(axis=1)
     return ds['Average']
+

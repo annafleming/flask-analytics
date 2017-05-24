@@ -203,6 +203,14 @@ class DatasetHelperTest(unittest.TestCase):
         expected_ds = pd.DataFrame([[3, 3, 3, 3, 3, 3.0]], columns=['Very Bad', 'Bad', 'Fair', 'Good', 'Very Good', 'Average'])
         self.assertTrue(ds.equals(expected_ds))
 
+    def test_should_exclude_column_if_missing_in_dataset(self):
+        ds = pd.DataFrame([[3, 3, 3, 3, 3]], columns=['0.0', '1.0', '2.0', '3.0', '4.0'])
+        ds['Average'] = analytics.helpers.dataset_helper.\
+            count_average_value_in_row(ds, column_weights={'0.0': 0, '1.0': 1, '2.0': 2, '3.0': 3, '4.0': 4, '5.0': 5})
+        expected_ds = pd.DataFrame([[3, 3, 3, 3, 3, 2.0]], columns=['0.0', '1.0', '2.0', '3.0', '4.0', 'Average'])
+        print(expected_ds)
+        print(ds)
+        self.assertTrue(ds.equals(expected_ds))
 
     if __name__ == '__main__':
         unittest.main()
