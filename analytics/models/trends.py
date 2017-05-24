@@ -80,18 +80,10 @@ def get_website_rating(site_name):
     result = {
         'Keys': result_ds['EndDate'].tolist(),
         'Average': result_ds['Average'].tolist(),
-        'Very Bad': result_ds['Very Bad'].tolist(),
-        'Bad': result_ds['Bad'].tolist(),
-        'Fair': result_ds['Fair'].tolist(),
-        'Good': result_ds['Good'].tolist(),
-        'Very Good': result_ds['Very Good'].tolist(),
     }
-
-    #TODO FIX
-    # result_ds.to_csv('data/'+site_name+'.csv')
-    # for column in unique_rating_values:
-    #     print(column)
-    #     result[column] = result_ds[column].tolist(),
+    
+    for column in unique_rating_values:
+        result[column] = result_ds[column].tolist()
     return result
 
 
