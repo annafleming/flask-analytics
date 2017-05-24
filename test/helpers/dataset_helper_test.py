@@ -191,5 +191,18 @@ class DatasetHelperTest(unittest.TestCase):
                                                            values_column='Color')
         self.assertTrue(result_ds.equals(expected_ds))
 
+    def test_should_count_average_value_in_row(self):
+        ds = pd.DataFrame([[3, 3, 3, 3, 3]], columns=['Very Bad', 'Bad', 'Fair', 'Good', 'Very Good'])
+        ds['Average'] = analytics.helpers.dataset_helper.count_average_value_in_row(ds, column_weights={
+            'Very Bad': 1,
+            'Bad': 2,
+            'Fair': 3,
+            'Good': 4,
+            'Very Good': 5,
+        })
+        expected_ds = pd.DataFrame([[3, 3, 3, 3, 3, 3.0]], columns=['Very Bad', 'Bad', 'Fair', 'Good', 'Very Good', 'Average'])
+        self.assertTrue(ds.equals(expected_ds))
+
+
     if __name__ == '__main__':
         unittest.main()
