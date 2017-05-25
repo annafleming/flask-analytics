@@ -11,6 +11,9 @@
       yrewrites: {
         type: Object,
         required: false
+      },
+      ymax:{
+        required: false
       }
     },
     data(){
@@ -32,6 +35,17 @@
                         callback: function(value, index, values) {
                           return (self.yrewrites[value]) ? self.yrewrites[value] : '';
                         }
+                    }
+                }
+            ]
+        }
+      }
+
+      if (this.ymax){
+        options['scales'] = {
+            yAxes: [{
+                    ticks: {
+                        max: this.ymax
                     }
                 }
             ]
