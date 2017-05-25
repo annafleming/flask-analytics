@@ -115,10 +115,14 @@ def get_product_rating(site_name):
     column_weights = {str(column): int(column) for column in unique_rating_values}
     result_ds['Average'] = count_average_value_in_row(result_ds, column_weights=column_weights)
     result_ds['Average'] = result_ds['Average'].fillna(0)
+    result_ds['Detractors'] = result_ds[["0", "1", "2", "3", "4", "5", "6"]].sum(axis=1)
+    result_ds['Passives'] = result_ds[["7", "8"]].sum(axis=1)
+    result_ds['Promoters'] = result_ds[["9", "10"]].sum(axis=1)
     result = {
         'Keys': result_ds['EndDate'].tolist(),
         'Average': result_ds['Average'].tolist(),
+        'Detractors': result_ds['Detractors'].tolist(),
+        'Passives': result_ds['Passives'].tolist(),
+        'Promoters': result_ds['Promoters'].tolist(),
     }
-    for column in result_ds.columns:
-        result[column] = result_ds[column].tolist()
     return result
