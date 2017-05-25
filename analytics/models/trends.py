@@ -1,6 +1,7 @@
 from .csv_loader import load_dataset, get_combined_dataset
 from ..helpers.datetime_helper import get_beginning_of_the_month, get_range_of_month, convert_date_column
-from ..helpers.dataset_helper import count_values_grouped_by_column, set_column_types, count_column_values_frequency, count_average_value_in_row
+from ..helpers.dataset_helper import count_values_grouped_by_column, set_column_types, \
+    count_column_values_frequency, count_average_value_in_row
 from .settings import Config
 
 
@@ -95,7 +96,8 @@ def get_website_rating(site_name):
 
 def get_product_rating(site_name):
     merged_dataset = get_combined_dataset(site_name, ['EndDate', 'ProductRating']).dropna(axis=0)
-    unique_rating_values = merged_dataset['ProductRating'].unique()
+    merged_dataset['ProductRating'] = merged_dataset['ProductRating'].astype(int)
+    unique_rating_values = [column for column in merged_dataset['ProductRating'].unique()]
     column_default_values = {column: 0 for column in unique_rating_values}
 
     merged_dataset['EndDate'] = get_beginning_of_the_month(merged_dataset['EndDate'],
@@ -107,12 +109,16 @@ def get_product_rating(site_name):
                                                        'EndDate',
                                                        "%Y-%m-%d",
                                                        column_default_values)
+    result_ds.columns = result_ds.columns.astype(str)
     result_ds = result_ds.sort_values('EndDate')
     result_ds['EndDate'] = convert_date_column(result_ds['EndDate'], format_in="%Y-%m-%d", format_out="%b %y")
-
+    column_weights = {str(column): int(column) for column in unique_rating_values}
+    result_ds['Average'] = count_average_value_in_row(result_ds, column_weights=column_weights)
+    result_ds['Average'] = result_ds['Average'].fillna(0)
     result = {
         'Keys': result_ds['EndDate'].tolist(),
+        'Average': result_ds['Average'].tolist(),
     }
-    for column in unique_rating_values:
-        result[str(column)] = result_ds[column].tolist()
+    for column in result_ds.columns:
+        result[column] = result_ds[column].tolist()
     return result
