@@ -35,11 +35,12 @@ def calculate_proportions_by_month(ds, date_column, value_column):
                                                 {value_column: 0, 'Total': 0, 'Proportion': 0.0})
     ds.sort_values(date_column, inplace=True)
     ds[date_column] = convert_date_column(ds[date_column], format_in="%Y-%m-%d", format_out="%b %y")
-
+    ds['Other'] = ds['Total'] - ds[value_column]
     return {
         'Keys': ds[date_column].tolist(),
         value_column: ds[value_column].tolist(),
         'Total': ds['Total'].tolist(),
+        'Other': ds['Other'].tolist(),
         'Proportion': ds['Proportion'].tolist(),
     }
 
