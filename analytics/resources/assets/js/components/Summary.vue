@@ -10,7 +10,7 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">PetSafe</h3>
@@ -24,10 +24,8 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <div class="panel panel-yellow">
                     <div class="panel-heading">
                         <h3 class="panel-title">SportDOG</h3>
@@ -59,7 +57,6 @@ import SummaryItem from './SummaryItem'
     created(){
       axios.get('/charts/summary').then(response =>{
         this.summary = response.data;
-        console.log(this.summary);
       });
     }
 
