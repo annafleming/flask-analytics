@@ -1,6 +1,6 @@
 FROM python:3.4.5
-RUN mkdir /opt/flask-analytics
-WORKDIR /opt/flask-analytics
+RUN mkdir /analytics
+WORKDIR /analytics
 ADD requirements.txt .
 RUN pip install -r requirements.txt
 ADD . .
