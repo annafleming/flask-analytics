@@ -1,8 +1,6 @@
 from flask import render_template
-
 from . import main
-from ..models.summary import get_summary
-from ..config import Config
+
 
 @main.route('/')
 def index():

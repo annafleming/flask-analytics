@@ -3,15 +3,18 @@ from ..models.trends import get_finished, get_completed, get_feedback_types, get
 from ..models.summary import get_summary
 import json
 from flask import jsonify
-
+from .. import db
 
 @charts.route('/summary')
 def summary():
-    trends = {
-        'petsafe': get_summary('petsafe'),
-        'sportdog': get_summary('sportdog'),
-    }
-    return jsonify(trends)
+    entry = db.analytics.find_one({'type': 'summary'})
+    if not entry:
+        trends = {
+            'petsafe': get_summary('petsafe'),
+            'sportdog': get_summary('sportdog'),
+        }
+        db.analytics.insert_one({'type': 'summary', 'data': trends})
+    return jsonify(db.analytics.find_one({'type': 'summary'})['data'])
 
 @charts.route('/finished')
 def finished():
