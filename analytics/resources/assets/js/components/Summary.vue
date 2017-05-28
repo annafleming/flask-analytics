@@ -8,7 +8,10 @@
                 </h1>
         </div>
     </div>
-        <div class="row">
+      <div class="row" v-if="state=='fail'">
+        <missing></missing>
+      </div>
+        <div class="row" v-if="state=='success'">
             <div class="col-lg-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -44,18 +47,29 @@
 
 <script>
 import SummaryItem from './SummaryItem';
+import Missing from './Missing';
 
   export default {
-    components: { SummaryItem},
+    components: { SummaryItem, Missing},
     data(){
       return {
-        summary: {}
+        summary: {},
+        state: 'fetching',
       }
     },
 
     created(){
       axios.get('/charts/summary').then(response =>{
-        this.summary = response.data;
+        if (response.data){
+          this.summary = response.data;
+          this.state = 'success';
+          console.log('success');
+        }
+        else{
+          this.state = 'fail';
+          console.log('fail');
+        }
+
       });
     }
 

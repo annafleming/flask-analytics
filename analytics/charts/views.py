@@ -9,12 +9,9 @@ from .. import db
 def summary():
     entry = db.analytics.find_one({'type': 'summary'})
     if not entry:
-        trends = {
-            'petsafe': get_summary('petsafe'),
-            'sportdog': get_summary('sportdog'),
-        }
-        db.analytics.insert_one({'type': 'summary', 'data': trends})
-    return jsonify(db.analytics.find_one({'type': 'summary'})['data'])
+        return ''
+    else:
+        return jsonify(entry['data'])
 
 @charts.route('/finished')
 def finished():
