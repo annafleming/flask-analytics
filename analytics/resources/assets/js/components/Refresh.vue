@@ -14,6 +14,7 @@
         this.text = 'In Progress...';
         axios.get('/refresh').then(response => {
           this.text = 'Refresh';
+          Event.$emit('refresh');
         });
       }
     }

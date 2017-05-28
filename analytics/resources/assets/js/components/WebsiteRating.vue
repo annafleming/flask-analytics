@@ -146,15 +146,22 @@ import Missing from './Missing';
       }
     },
     created(){
-      axios.get('/charts/website_rating').then(response =>{
-        if (response.data){
-          this.info = response.data;
-          this.state = 'success';
-        }
-        else{
-          this.state = 'fail';
-        }
-      });
+      this.fetch();
+      Event.$on('refresh', () => this.fetch());
     },
+
+    methods: {
+      fetch(){
+        axios.get('/charts/website_rating').then(response =>{
+          if (response.data){
+            this.info = response.data;
+            this.state = 'success';
+          }
+          else{
+            this.state = 'fail';
+          }
+        });
+      }
+    }
   }
 </script>

@@ -59,18 +59,22 @@ import Missing from './Missing';
     },
 
     created(){
-      axios.get('/charts/summary').then(response =>{
-        if (response.data){
-          this.summary = response.data;
-          this.state = 'success';
-          console.log('success');
-        }
-        else{
-          this.state = 'fail';
-          console.log('fail');
-        }
+      this.fetch();
+      Event.$on('refresh', () => this.fetch());
+    },
 
-      });
+    methods: {
+      fetch(){
+        axios.get('/charts/summary').then(response =>{
+          if (response.data){
+            this.summary = response.data;
+            this.state = 'success';
+          }
+          else{
+            this.state = 'fail';
+          }
+        });
+      }
     }
 
   }

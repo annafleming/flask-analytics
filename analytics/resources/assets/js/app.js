@@ -7,6 +7,7 @@ import Chart from 'chart.js';
 window.Vue = Vue;
 window.axios = axios;
 window.Chart = Chart;
+window.Event = new Vue();
 
 Vue.use(VueRouter);
 
