@@ -1,56 +1,32 @@
 from . import charts
-from ..models.trends import get_finished, get_completed, get_feedback_types, get_website_rating, get_product_rating
-from ..models.summary import get_summary
-import json
-from flask import jsonify
-from .. import db
+from ..models.refresh import get_data
+
 
 @charts.route('/summary')
 def summary():
-    entry = db.analytics.find_one({'type': 'summary'})
-    if not entry:
-        return ''
-    else:
-        return jsonify(entry['data'])
+    return get_data('summary')
+
 
 @charts.route('/finished')
 def finished():
-    trends = {
-        'petsafe': get_finished('petsafe'),
-        'sportdog': get_finished('sportdog'),
-    }
-    return jsonify(trends)
+    return get_data('finished')
 
 
 @charts.route('/completed')
 def completed():
-    trends = {
-        'petsafe': get_completed('petsafe'),
-        'sportdog': get_completed('sportdog'),
-    }
-    return jsonify(trends)
+    return get_data('completed')
+
 
 @charts.route('/feedback_type')
 def feedback_type():
-    trends = {
-        'petsafe': get_feedback_types('petsafe'),
-        'sportdog': get_feedback_types('sportdog'),
-    }
-    return jsonify(trends)
+    return get_data('feedback_types')
+
 
 @charts.route('/website_rating')
 def website_rating():
-    trends = {
-        'petsafe': get_website_rating('petsafe'),
-        'sportdog': get_website_rating('sportdog'),
-    }
-    return jsonify(trends)
+    return get_data('website_rating')
 
 
 @charts.route('/product_rating')
 def product_rating():
-    trends = {
-        'petsafe': get_product_rating('petsafe'),
-        'sportdog': get_product_rating('sportdog'),
-    }
-    return jsonify(trends)
+    return get_data('product_rating')
