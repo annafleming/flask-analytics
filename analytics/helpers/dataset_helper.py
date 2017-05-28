@@ -115,5 +115,7 @@ def count_average_value_in_row(ds, column_weights):
         if column in ds:
             ds['Average'] = ds['Average'] + column_weights[column] * ds[column]
     ds['Average'] = ds['Average'] / ds[column_names].sum(axis=1)
+    ds['Average'] = ds['Average'].apply(lambda x: float("{0:.2f}".format(x)))
+
     return ds['Average']
 
