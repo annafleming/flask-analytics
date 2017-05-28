@@ -10,9 +10,11 @@ window.Chart = Chart;
 
 Vue.use(VueRouter);
 
+import Refresh from './components/Refresh';
 
 new Vue({
     el: '#app',
     router: router,
+    components: { Refresh },
     delimiters: ['[[',']]']
 })

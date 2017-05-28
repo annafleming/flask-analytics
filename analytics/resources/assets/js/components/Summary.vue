@@ -1,15 +1,11 @@
 <template>
     <div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
                 <h1 class="page-header">
                     Dashboard
                     <small>Statistics Overview</small>
                 </h1>
-            </div>
-
-        <div class="col-lg-6 text-right">
-          <refresh></refresh>
         </div>
     </div>
         <div class="row">
@@ -47,11 +43,10 @@
 </template>
 
 <script>
-import Refresh from './Refresh';
 import SummaryItem from './SummaryItem';
 
   export default {
-    components: { SummaryItem, Refresh},
+    components: { SummaryItem},
     data(){
       return {
         summary: {}

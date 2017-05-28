@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="btn btn-lg btn-info" v-on:click="refresh">{{ text }}</button>
+  <button type="button" class="btn btn-link navbar-brand" v-on:click="refresh">{{ text }}</button>
 </template>
 
 <script>
