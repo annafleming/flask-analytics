@@ -5,3 +5,4 @@ flask-testing
 nose
 pandas
 freezegun
+pymongo
