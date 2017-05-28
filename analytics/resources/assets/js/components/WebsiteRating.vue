@@ -8,6 +8,10 @@
               </h1>
         </div>
     </div>
+    <div class="row" v-if="state=='fail'">
+      <missing></missing>
+    </div>
+    <div v-if="state=='success'">
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-primary">
@@ -121,6 +125,7 @@
             </div>
         </div>
     </div>
+  </div>
 
   </div>
 </template>
@@ -129,18 +134,26 @@
 
 import LineGraph from './graphs/LineGraph'
 import BarGraph from './graphs/BarGraph'
+import Missing from './Missing';
 
   export default{
-    components: { LineGraph, BarGraph },
+    components: { LineGraph, BarGraph, Missing },
 
     data(){
       return {
-        info : {}
+        info : {},
+        state: 'fetching',
       }
     },
     created(){
       axios.get('/charts/website_rating').then(response =>{
-        this.info = response.data
+        if (response.data){
+          this.info = response.data;
+          this.state = 'success';
+        }
+        else{
+          this.state = 'fail';
+        }
       });
     },
   }

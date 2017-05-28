@@ -8,6 +8,10 @@
               </h1>
         </div>
     </div>
+    <div class="row" v-if="state=='fail'">
+      <missing></missing>
+    </div>
+    <div v-if="state=='success'">
     <div class="row">
         <div class="col-lg-6">
             <div class="panel panel-primary">
@@ -52,24 +56,32 @@
             </div>
         </div>
     </div>
-
+</div>
   </div>
 </template>
 
 <script>
 import BarGraph from './graphs/BarGraph';
+import Missing from './Missing';
 
   export default{
-    components: { BarGraph },
+    components: { BarGraph, Missing },
 
     data(){
       return {
-        info : {}
+        info : {},
+        state: 'fetching',
       }
     },
     created(){
       axios.get('/charts/feedback_type').then(response =>{
-        this.info = response.data
+        if (response.data){
+          this.info = response.data;
+          this.state = 'success';
+        }
+        else{
+          this.state = 'fail';
+        }
       });
     },
     methods: {
