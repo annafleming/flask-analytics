@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">PetSafe</h3>
@@ -19,21 +19,18 @@
                     <bar-graph :labels="info.petsafe.Keys" :values="[
                     {
                       data: info.petsafe['Products'],
-                      color: '#D3C4BE',
+                      color: '#7DA3A1',
                       name: 'Products'
                     },{
                       data: info.petsafe['Website Experience'],
-                      color: '#EBCFC4',
+                      color: '#D9B44A',
                       name: 'Website Experience'
                     }]"></bar-graph>
                   </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <div class="panel panel-yellow">
                 <div class="panel-heading">
                     <h3 class="panel-title">SportDOG</h3>
@@ -43,11 +40,11 @@
                     <bar-graph :labels="info.sportdog.Keys" :values="[
                     {
                       data: info.sportdog['Products'],
-                      color: '#D3C4BE',
+                      color: '#7DA3A1',
                       name: 'Products'
                     },{
                       data: info.sportdog['Website Experience'],
-                      color: '#EBCFC4',
+                      color: '#D9B44A',
                       name: 'Website Experience'
                     }]"></bar-graph>
                   </div>
