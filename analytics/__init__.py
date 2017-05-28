@@ -20,5 +20,8 @@ def create_app(config_name):
     from .charts import charts as charts_blueprint
     app.register_blueprint(charts_blueprint, url_prefix='/charts')
 
+    from .refresh import refresh as refresh_blueprint
+    app.register_blueprint(refresh_blueprint, url_prefix='/refresh')
+
     return app
 
