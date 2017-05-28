@@ -1,5 +1,6 @@
 import datetime
 from dateutil.relativedelta import relativedelta
+import time
 
 
 def subtract_from_today_days(days):
@@ -34,3 +35,8 @@ def _lambda_convert_date_format(date_str, format_in, format_out):
 
 def convert_date_column(column, format_in, format_out):
     return column.apply(lambda x: _lambda_convert_date_format(x, format_in, format_out))
+
+
+def get_timestamp():
+    return time.time()
+

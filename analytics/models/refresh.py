@@ -2,7 +2,7 @@ from ..models.summary import get_summary
 from ..models.trends import get_finished, get_completed, get_feedback_types, get_website_rating, get_product_rating
 from flask import jsonify
 from .. import db
-
+from ..helpers.datetime_helper import get_timestamp
 
 def refresh_all():
     db.analytics.delete_many({})
@@ -30,7 +30,9 @@ def refresh_all():
         'petsafe': get_product_rating('petsafe'),
         'sportdog': get_product_rating('sportdog'),
     }})
-    return 'True'
+    timestamp = get_timestamp()
+    db.analytics.insert_one({'type': 'timestamp', 'data': timestamp})
+    return str(timestamp)
 
 
 def get_data(key):
@@ -40,3 +42,6 @@ def get_data(key):
     else:
         return jsonify(entry['data'])
 
+
+def get_update_timestamp():
+    return get_data('timestamp')
