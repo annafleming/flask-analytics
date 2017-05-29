@@ -1,9 +1,10 @@
 <template>
-  <span>
-    <button type="button" class="btn btn-default navbar-brand" v-on:click="refresh">{{ text }}</button>
-    <span class="navbar-brand">{{ updatedMessage }}</span>
-  </span>
-
+  <div class="row">
+      <div class="col-lg-12 text-right refresh">
+        <span>{{ updatedMessage }}</span>
+        <button type="button" class="btn btn-success" v-on:click="refresh">{{ text }}</button>
+      </div>
+  </div>
 </template>
 
 <script>
