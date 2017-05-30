@@ -2,7 +2,7 @@
   <div class="row">
       <div class="col-lg-12 text-right refresh">
         <span>{{ updatedMessage }}</span>
-        <button type="button" class="btn btn-success" v-on:click="refresh">{{ text }}</button>
+        <button type="button" class="btn btn-update" v-on:click="refresh">{{ text }}</button>
       </div>
   </div>
 </template>

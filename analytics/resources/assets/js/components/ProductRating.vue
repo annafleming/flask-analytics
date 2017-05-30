@@ -14,7 +14,7 @@
     <div v-if="state=='success'">
     <div class="row">
         <div class="col-lg-6">
-            <div class="panel panel-primary">
+            <div class="panel panel-petsafe">
                 <div class="panel-heading">
                     <h3 class="panel-title">PetSafe</h3>
                 </div>
@@ -32,12 +32,12 @@
                       <bar-graph :ystack="true" :labels="info.petsafe.Keys" :values="[
                       {
                         data: info.petsafe['Detractors'],
-                        color: '#C0504D',
+                        color: '#c74c3c',
                         name: 'Detractors'
                       },
                       {
                         data: info.petsafe['Passives'],
-                        color: '#FFC000',
+                        color: '#f1c40f',
                         name: 'Passives'
                       },
                       {
@@ -53,7 +53,7 @@
         </div>
 
         <div class="col-lg-6">
-            <div class="panel panel-yellow">
+            <div class="panel panel-sportdog">
                 <div class="panel-heading">
                     <h3 class="panel-title">SportDOG</h3>
                 </div>
@@ -71,12 +71,12 @@
                       <bar-graph :ystack="true" :labels="info.sportdog.Keys" :values="[
                       {
                         data: info.sportdog['Detractors'],
-                        color: '#C0504D',
+                        color: '#c74c3c',
                         name: 'Detractors'
                       },
                       {
                         data: info.sportdog['Passives'],
-                        color: '#FFC000',
+                        color: '#f1c40f',
                         name: 'Passives'
                       },
                       {

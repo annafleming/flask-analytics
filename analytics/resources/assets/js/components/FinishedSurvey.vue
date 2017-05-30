@@ -14,7 +14,7 @@
     <div v-if="state=='success'">
     <div class="row">
         <div class="col-lg-6">
-            <div class="panel panel-primary">
+            <div class="panel panel-petsafe">
                 <div class="panel-heading">
                     <h3 class="panel-title">PetSafe</h3>
                 </div>
@@ -32,11 +32,11 @@
                           <bar-graph :ystack="true" :labels="info.petsafe.Keys" :values="[
                           {
                             data: info.petsafe.Finished,
-                            color: '#7DA3A1',
+                            color: '#3498db',
                             name: 'Finished'
                           },{
                             data: info.petsafe.Other,
-                            color: '#D9B44A',
+                            color: '#f1c40f',
                             name: 'Total'
                           }]"></bar-graph>
                         </div>
@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <div class="panel panel-yellow">
+            <div class="panel panel-sportdog">
                 <div class="panel-heading">
                     <h3 class="panel-title">SportDOG</h3>
                 </div>
@@ -64,11 +64,11 @@
                           <bar-graph :ystack="true" :labels="info.sportdog.Keys" :values="[
                           {
                             data: info.sportdog.Finished,
-                            color: '#F9DC24',
+                            color: '#3498db',
                             name: 'Finished'
                           },{
                             data: info.sportdog.Other,
-                            color: '#83BA43',
+                            color: '#f1c40f',
                             name: 'Total'
                           }]"></bar-graph>
                         </div>

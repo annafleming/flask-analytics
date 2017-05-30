@@ -60,6 +60,8 @@
       this.values.forEach((value, index, array) => {
         chartData.datasets.push({
           data: value ? value : [],
+          backgroundColor: 'rgba(52, 152, 219, .5)',
+          borderColor: 'rgba(34, 34, 17, .5)',
         });
       });
       new Chart.Line(this.$refs.canvas.getContext('2d'), {data: chartData, options: options});

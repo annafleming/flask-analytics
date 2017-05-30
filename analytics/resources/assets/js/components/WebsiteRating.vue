@@ -14,7 +14,7 @@
     <div v-if="state=='success'">
     <div class="row">
         <div class="col-lg-6">
-            <div class="panel panel-primary">
+            <div class="panel panel-petsafe">
                 <div class="panel-heading">
                     <h3 class="panel-title">PetSafe</h3>
                 </div>
@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <div class="panel panel-yellow">
+            <div class="panel panel-sportdog">
                 <div class="panel-heading">
                     <h3 class="panel-title">SportDOG</h3>
                 </div>

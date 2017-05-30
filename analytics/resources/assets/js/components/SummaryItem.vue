@@ -4,7 +4,7 @@
           <h3><slot></slot></h3>
           <div class="row">
               <div class="col-lg-12">
-                <div class="panel panel-primary">
+                <div class="panel panel-reviews">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
@@ -25,13 +25,13 @@
           </div>
           <div class="row">
               <div class="col-lg-4">
-                <summary-panel text="Promoters" icon="fa-smile-o" :value="summary['promoters']" color="green"></summary-panel>
+                <summary-panel text="Promoters" icon="fa-smile-o" :value="summary['promoters']" color="promoters"></summary-panel>
               </div>
               <div class="col-lg-4">
-                <summary-panel text="Passives" icon="fa-meh-o" :value="summary['passives']" color="yellow"></summary-panel>
+                <summary-panel text="Passives" icon="fa-meh-o" :value="summary['passives']" color="passives"></summary-panel>
               </div>
               <div class="col-lg-4">
-                <summary-panel text="Detractors" icon="fa-frown-o" :value="summary['detractors']" color="red"></summary-panel>
+                <summary-panel text="Detractors" icon="fa-frown-o" :value="summary['detractors']" color="detractors"></summary-panel>
               </div>
           </div>
       </div>
