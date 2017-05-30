@@ -13,19 +13,21 @@
     </div>
     <div v-if="state=='success'">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">PetSafe</h3>
                 </div>
                 <div class="panel-body">
                   <div class="row">
-                      <div class="col-lg-6">
+                      <div class="col-lg-12">
                         <div class="well" v-if="info.petsafe">
                           <line-graph :labels="info.petsafe.Keys" :values="[info.petsafe.Proportion]"></line-graph>
                         </div>
                       </div>
-                      <div class="col-lg-6">
+                  </div>
+                  <div class="row">
+                      <div class="col-lg-12">
                         <div class="well" v-if="info.petsafe">
                           <bar-graph :ystack="true" :labels="info.petsafe.Keys" :values="[
                           {
@@ -43,22 +45,21 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <div class="panel panel-yellow">
                 <div class="panel-heading">
                     <h3 class="panel-title">SportDOG</h3>
                 </div>
                 <div class="panel-body">
                   <div class="row">
-                      <div class="col-lg-6">
+                      <div class="col-lg-12">
                         <div class="well" v-if="info.sportdog">
                           <line-graph :labels="info.sportdog.Keys" :values="[info.sportdog.Proportion]"></line-graph>
                         </div>
                       </div>
-                      <div class="col-lg-6">
+                      </div>
+                      <div class="row">
+                      <div class="col-lg-12">
                         <div class="well" v-if="info.sportdog">
                           <bar-graph :ystack="true" :labels="info.sportdog.Keys" :values="[
                           {

@@ -13,14 +13,14 @@
     </div>
     <div v-if="state=='success'">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">PetSafe</h3>
                 </div>
                 <div class="panel-body">
                   <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                     <div class="well" v-if="info.petsafe && info.petsafe.Keys && info.petsafe.Average">
                       <line-graph :labels="info.petsafe.Keys"
                       :values="[info.petsafe.Average]"
@@ -33,7 +33,9 @@
                       }"></line-graph>
                     </div>
                     </div>
-                    <div class="col-lg-6">
+                    </div>
+                    <div class="row">
+                    <div class="col-lg-12">
                     <div class="well" v-if="info.petsafe && info.petsafe.Keys">
                       <bar-graph :ystack="true" :labels="info.petsafe.Keys" :values="[
                       {
@@ -67,17 +69,14 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <div class="panel panel-yellow">
                 <div class="panel-heading">
                     <h3 class="panel-title">SportDOG</h3>
                 </div>
                 <div class="panel-body">
                   <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                     <div class="well" v-if="info.sportdog && info.sportdog.Keys && info.sportdog.Average">
                       <line-graph :labels="info.sportdog.Keys"
                       :values="[info.sportdog.Average]"
@@ -90,7 +89,9 @@
                       }"></line-graph>
                     </div>
                     </div>
-                    <div class="col-lg-6">
+                    </div>
+                    <div class="row">
+                    <div class="col-lg-12">
                     <div class="well" v-if="info.sportdog && info.sportdog.Keys">
                     <bar-graph :ystack="true" :labels="info.sportdog.Keys" :values="[
                     {
