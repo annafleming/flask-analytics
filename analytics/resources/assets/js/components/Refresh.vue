@@ -12,7 +12,7 @@
     data(){
       return {
         updated: '',
-        text: 'Refresh',
+        text: 'Update',
       }
     },
     created(){
@@ -25,7 +25,7 @@
       refresh(){
         this.text = 'In Progress...';
         axios.get('/refresh').then(response => {
-          this.text = 'Refresh';
+          this.text = 'Update';
           this.updated = response.data;
           Event.$emit('refresh');
         });

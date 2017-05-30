@@ -1,6 +1,6 @@
 <template>
   <div class="alert alert-warning">
-    Please refresh the data.
+    Hit 'Update' to see the latest stats.
   </div>
 </template>
 
