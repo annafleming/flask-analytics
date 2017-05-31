@@ -8,7 +8,7 @@
     props: {
       labels: Array,
       values: Array,
-      ystack: {
+      stacked: {
         type: Boolean,
         default: false,
       }
@@ -22,8 +22,11 @@
       let options = {
         scales: {
             yAxes: [{
-                stacked: this.ystack
+                stacked: this.stacked,
             }],
+            xAxes: [{
+                stacked: this.stacked,
+            }]
         }
       };
       let context = this.$refs.canvas.getContext('2d');

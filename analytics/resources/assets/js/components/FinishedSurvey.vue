@@ -29,7 +29,7 @@
                   <div class="row">
                       <div class="col-lg-12">
                         <div class="well" v-if="info.petsafe">
-                          <bar-graph :ystack="true" :labels="info.petsafe.Keys" :values="[
+                          <bar-graph :stacked="true" :labels="info.petsafe.Keys" :values="[
                           {
                             data: info.petsafe.Finished,
                             color: '#3498db',
@@ -61,7 +61,7 @@
                       <div class="row">
                       <div class="col-lg-12">
                         <div class="well" v-if="info.sportdog">
-                          <bar-graph :ystack="true" :labels="info.sportdog.Keys" :values="[
+                          <bar-graph :stacked="true" :labels="info.sportdog.Keys" :values="[
                           {
                             data: info.sportdog.Finished,
                             color: '#3498db',
