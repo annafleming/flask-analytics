@@ -61,35 +61,18 @@
 </template>
 
 <script>
-import BarGraph from './graphs/BarGraph';
-import Missing from './Missing';
 
-  export default{
-    components: { BarGraph, Missing },
+import ChartAbstract from './ChartAbstract';
+import LineGraph from './graphs/LineGraph'
+import BarGraph from './graphs/BarGraph'
 
+  export default {
+    extends: ChartAbstract,
+    components: { LineGraph, BarGraph},
     data(){
       return {
-        info : {},
-        state: 'fetching',
+        apiRoute: '/charts/feedback_type',
       }
     },
-    created(){
-      this.fetch();
-      Event.$on('refresh', () => this.fetch());
-    },
-
-    methods: {
-      fetch(){
-        axios.get('/charts/feedback_type').then(response =>{
-          if (response.data){
-            this.info = response.data;
-            this.state = 'success';
-          }
-          else{
-            this.state = 'fail';
-          }
-        });
-      }
-    }
   }
 </script>

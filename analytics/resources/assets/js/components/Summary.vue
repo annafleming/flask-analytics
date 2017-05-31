@@ -17,12 +17,12 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">PetSafe</h3>
                     </div>
-                    <div class="panel-body" v-if="summary.petsafe && summary.petsafe.week">
-                        <summary-item :summary="summary.petsafe.week" header>Last 7 days</summary-item>
+                    <div class="panel-body" v-if="info.petsafe && info.petsafe.week">
+                        <summary-item :summary="info.petsafe.week" header>Last 7 days</summary-item>
                     </div>
 
-                    <div class="panel-body" v-if="summary.petsafe && summary.petsafe.month">
-                        <summary-item :summary="summary.petsafe.month">Last 30 days</summary-item>
+                    <div class="panel-body" v-if="info.petsafe && info.petsafe.month">
+                        <summary-item :summary="info.petsafe.month">Last 30 days</summary-item>
                     </div>
                 </div>
             </div>
@@ -32,12 +32,12 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">SportDOG</h3>
                     </div>
-                    <div class="panel-body" v-if="summary.sportdog && summary.sportdog.week">
-                        <summary-item :summary="summary.sportdog.week" header>Last 7 days</summary-item>
+                    <div class="panel-body" v-if="info.sportdog && info.sportdog.week">
+                        <summary-item :summary="info.sportdog.week" header>Last 7 days</summary-item>
                     </div>
 
-                    <div class="panel-body" v-if="summary.sportdog && summary.sportdog.month">
-                        <summary-item :summary="summary.sportdog.month">Last 30 days</summary-item>
+                    <div class="panel-body" v-if="info.sportdog && info.sportdog.month">
+                        <summary-item :summary="info.sportdog.month">Last 30 days</summary-item>
                     </div>
                 </div>
             </div>
@@ -47,35 +47,15 @@
 
 <script>
 import SummaryItem from './SummaryItem';
-import Missing from './Missing';
+import ChartAbstract from './ChartAbstract';
 
   export default {
-    components: { SummaryItem, Missing},
+    extends: ChartAbstract,
+    components: { SummaryItem},
     data(){
       return {
-        summary: {},
-        state: 'fetching',
+        apiRoute: '/charts/summary',
       }
     },
-
-    created(){
-      this.fetch();
-      Event.$on('refresh', () => this.fetch());
-    },
-
-    methods: {
-      fetch(){
-        axios.get('/charts/summary').then(response =>{
-          if (response.data){
-            this.summary = response.data;
-            this.state = 'success';
-          }
-          else{
-            this.state = 'fail';
-          }
-        });
-      }
-    }
-
   }
 </script>

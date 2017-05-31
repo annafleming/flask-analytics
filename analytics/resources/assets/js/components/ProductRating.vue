@@ -98,36 +98,17 @@
 
 <script>
 
+import ChartAbstract from './ChartAbstract';
 import LineGraph from './graphs/LineGraph'
 import BarGraph from './graphs/BarGraph'
-import Missing from './Missing';
 
-  export default{
-    components: { LineGraph, BarGraph, Missing },
-
+  export default {
+    extends: ChartAbstract,
+    components: { LineGraph, BarGraph},
     data(){
       return {
-        info : {},
-        state: 'fetching',
+        apiRoute: '/charts/product_rating',
       }
     },
-    created(){
-      this.fetch();
-      Event.$on('refresh', () => this.fetch());
-    },
-
-    methods: {
-      fetch(){
-        axios.get('/charts/product_rating').then(response =>{
-          if (response.data){
-            this.info = response.data;
-            this.state = 'success';
-          }
-          else{
-            this.state = 'fail';
-          }
-        });
-      }
-    }
   }
 </script>
