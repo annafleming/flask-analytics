@@ -22,7 +22,7 @@
                   <div class="row">
                       <div class="col-lg-12">
                         <div class="well" v-if="info.petsafe">
-                          <line-graph :labels="info.petsafe.Keys" :values="[info.petsafe.Proportion]"></line-graph>
+                          <line-graph :labels="info.petsafe.Keys" :values="[info.petsafe.Proportion]" :ymax="100"></line-graph>
                         </div>
                       </div>
                   </div>
@@ -54,7 +54,7 @@
                   <div class="row">
                       <div class="col-lg-12">
                         <div class="well" v-if="info.sportdog">
-                          <line-graph :labels="info.sportdog.Keys" :values="[info.sportdog.Proportion]"></line-graph>
+                          <line-graph :labels="info.sportdog.Keys" :values="[info.sportdog.Proportion]" :ymax="100"></line-graph>
                         </div>
                       </div>
                  </div>
