@@ -6,12 +6,12 @@ from .settings import Config
 
 
 def get_finished(site_name):
-    merged_dataset = get_combined_dataset(site_name, ['EndDate', 'Finished'])
+    merged_dataset = get_combined_dataset(site_name, ['EndDate', 'Finished']).dropna(axis=0)
     return calculate_proportions_by_month(merged_dataset, 'EndDate', 'Finished')
 
 
 def get_completed(site_name):
-    ds = load_dataset(site_name, Config.VOC_SURVEY, ['EndDate', 'CompletedPurpose'])
+    ds = load_dataset(site_name, Config.VOC_SURVEY, ['EndDate', 'CompletedPurpose']).dropna(axis=0)
     return calculate_proportions_by_month(ds, 'EndDate', 'CompletedPurpose')
 
 
