@@ -11,6 +11,12 @@
       stacked: {
         type: Boolean,
         default: false,
+      },
+      ylabel:{
+        required: false
+      },
+      xlabel:{
+        required: false
       }
     },
 
@@ -29,6 +35,33 @@
             }]
         }
       };
+
+      if (this.ylabel){
+        if (!options['scales']){
+          options['scales'] = {};
+        }
+        if (!options['scales']['yAxes']){
+          options['scales']['yAxes'] = [{}]
+        }
+        options['scales']['yAxes'][0]['scaleLabel'] = {
+          display: true,
+          labelString: this.ylabel,
+        }
+      }
+
+      if (this.xlabel){
+        if (!options['scales']){
+          options['scales'] = {};
+        }
+        if (!options['scales']['xAxes']){
+          options['scales']['xAxes'] = [{}]
+        }
+        options['scales']['xAxes'][0]['scaleLabel'] = {
+          display: true,
+          labelString: this.xlabel,
+        }
+      }
+
       let context = this.$refs.canvas.getContext('2d');
       var chartData = {
           labels: this.labels,
