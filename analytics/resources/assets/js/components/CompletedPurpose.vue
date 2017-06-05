@@ -22,14 +22,14 @@
                   <div class="row">
                       <div class="col-lg-12">
                         <div class="well" v-if="info.petsafe">
-                          <line-graph :labels="info.petsafe.Keys" :values="[info.petsafe.Proportion]" :ymax="100"></line-graph>
+                          <line-graph :labels="info.petsafe.Keys" :values="[info.petsafe.Proportion]" :ymax="100"  ylabel="Reviews, %"></line-graph>
                         </div>
                       </div>
                   </div>
                   <div class="row">
                       <div class="col-lg-12">
                         <div class="well" v-if="info.petsafe">
-                          <bar-graph :stacked="true" :labels="info.petsafe.Keys" :values="[
+                          <bar-graph :stacked="true" :labels="info.petsafe.Keys"  ylabel="Reviews" :values="[
                           {
                             data: info.petsafe.CompletedPurpose,
                             color: '#3498db',
@@ -54,14 +54,14 @@
                   <div class="row">
                       <div class="col-lg-12">
                         <div class="well" v-if="info.sportdog">
-                          <line-graph :labels="info.sportdog.Keys" :values="[info.sportdog.Proportion]" :ymax="100"></line-graph>
+                          <line-graph :labels="info.sportdog.Keys" :values="[info.sportdog.Proportion]"  ylabel="Reviews, %" :ymax="100"></line-graph>
                         </div>
                       </div>
                  </div>
                  <div class="row">
                       <div class="col-lg-12">
                         <div class="well" v-if="info.sportdog">
-                          <bar-graph :stacked="true" :labels="info.sportdog.Keys" :values="[
+                          <bar-graph :stacked="true" :labels="info.sportdog.Keys"  ylabel="Reviews" :values="[
                           {
                             data: info.sportdog.CompletedPurpose,
                             color: '#3498db',
