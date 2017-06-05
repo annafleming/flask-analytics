@@ -54,6 +54,7 @@ def get_feedback_types(site_name):
     result_ds['Products'] = result_ds['Products'] + result_ds['Product(s)']
     result_ds.drop(['Product(s)'], axis=1, inplace=True)
     result_ds.sort_values('EndDate', inplace=True)
+    result_ds['EndDate'] = convert_date_column(result_ds['EndDate'], format_in="%Y-%m-%d", format_out="%b %y")
     return {
         'Keys': result_ds['EndDate'].tolist(),
         'Website Experience': result_ds['Website Experience'].tolist(),
