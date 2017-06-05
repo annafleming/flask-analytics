@@ -24,6 +24,7 @@
                     <div class="well" v-if="info.petsafe && info.petsafe.Keys && info.petsafe.Average">
                       <line-graph :labels="info.petsafe.Keys"
                       :values="[info.petsafe.Average]"
+                      ylabel="Rating"
                       :yrewrites="{
                         1: 'Very Bad',
                         2: 'Bad',
@@ -37,7 +38,7 @@
                     <div class="row">
                     <div class="col-lg-12">
                     <div class="well" v-if="info.petsafe && info.petsafe.Keys">
-                      <bar-graph :stacked="true" :labels="info.petsafe.Keys" :values="[
+                      <bar-graph :stacked="true" :labels="info.petsafe.Keys" ylabel="Reviews" :values="[
                       {
                         data: info.petsafe['Very Bad'],
                         color: '#C0504D',
@@ -80,6 +81,7 @@
                     <div class="well" v-if="info.sportdog && info.sportdog.Keys && info.sportdog.Average">
                       <line-graph :labels="info.sportdog.Keys"
                       :values="[info.sportdog.Average]"
+                      ylabel="Rating"
                       :yrewrites="{
                         1: 'Very Bad',
                         2: 'Bad',
@@ -93,7 +95,7 @@
                     <div class="row">
                     <div class="col-lg-12">
                     <div class="well" v-if="info.sportdog && info.sportdog.Keys">
-                    <bar-graph :stacked="true" :labels="info.sportdog.Keys" :values="[
+                    <bar-graph :stacked="true" :labels="info.sportdog.Keys" ylabel="Reviews" :values="[
                     {
                       data: info.sportdog['Very Bad'],
                       color: '#C0504D',

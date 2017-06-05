@@ -22,14 +22,14 @@
                   <div class="row">
                     <div class="col-lg-12">
                     <div class="well" v-if="info.petsafe && info.petsafe.Keys && info.petsafe.Average">
-                      <line-graph :labels="info.petsafe.Keys" :values="[info.petsafe.Average]" :ymax="10"></line-graph>
+                      <line-graph :labels="info.petsafe.Keys" :values="[info.petsafe.Average]" :ymax="10" ylabel="Rating"></line-graph>
                     </div>
                     </div>
                     </div>
                     <div class="row">
                     <div class="col-lg-12">
                     <div class="well" v-if="info.petsafe && info.petsafe.Keys">
-                      <bar-graph :stacked="true" :labels="info.petsafe.Keys" :values="[
+                      <bar-graph :stacked="true" :labels="info.petsafe.Keys" ylabel="Reviews" :values="[
                       {
                         data: info.petsafe['Detractors'],
                         color: '#c74c3c',
@@ -61,14 +61,14 @@
                   <div class="row">
                     <div class="col-lg-12">
                     <div class="well" v-if="info.sportdog && info.sportdog.Keys && info.sportdog.Average">
-                      <line-graph :labels="info.sportdog.Keys" :values="[info.sportdog.Average]" :ymax="10"></line-graph>
+                      <line-graph :labels="info.sportdog.Keys" :values="[info.sportdog.Average]" :ymax="10" ylabel="Rating"></line-graph>
                     </div>
                     </div>
                     </div>
                     <div class="row">
                     <div class="col-lg-12">
                     <div class="well" v-if="info.sportdog && info.sportdog.Keys">
-                      <bar-graph :stacked="true" :labels="info.sportdog.Keys" :values="[
+                      <bar-graph :stacked="true" :labels="info.sportdog.Keys" ylabel="Reviews" :values="[
                       {
                         data: info.sportdog['Detractors'],
                         color: '#c74c3c',

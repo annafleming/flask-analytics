@@ -20,7 +20,7 @@
                 </div>
                 <div class="panel-body">
                   <div class="well" v-if="info.petsafe">
-                    <bar-graph :labels="info.petsafe.Keys" :values="[
+                    <bar-graph :labels="info.petsafe.Keys" ylabel="Reviews" :values="[
                     {
                       data: info.petsafe['Products'],
                       color: '#7DA3A1',
@@ -41,7 +41,7 @@
                 </div>
                 <div class="panel-body">
                   <div class="well" v-if="info.sportdog">
-                    <bar-graph :labels="info.sportdog.Keys" :values="[
+                    <bar-graph :labels="info.sportdog.Keys" ylabel="Reviews" :values="[
                     {
                       data: info.sportdog['Products'],
                       color: '#7DA3A1',
