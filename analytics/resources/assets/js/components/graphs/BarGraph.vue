@@ -3,70 +3,25 @@
 </template>
 
 <script>
-
+  import GraphAbstract from './GraphAbstract'
   export default{
+    extends: GraphAbstract,
     props: {
-      labels: Array,
-      values: Array,
       stacked: {
         type: Boolean,
         default: false,
       },
-      ylabel:{
-        required: false
-      },
-      xlabel:{
-        required: false
-      }
     },
 
     data(){
-      return {
-      }
+      return {}
     },
     mounted(){
-      let options = {
-        scales: {
-            yAxes: [{
-                stacked: this.stacked,
-            }],
-            xAxes: [{
-                stacked: this.stacked,
-            }]
-        }
-      };
+      let options = this.getChartOptions();
+      options['scales']['yAxes'][0]['stacked'] = this.stacked;
+      options['scales']['xAxes'][0]['stacked'] = this.stacked;
 
-      if (this.ylabel){
-        if (!options['scales']){
-          options['scales'] = {};
-        }
-        if (!options['scales']['yAxes']){
-          options['scales']['yAxes'] = [{}]
-        }
-        options['scales']['yAxes'][0]['scaleLabel'] = {
-          display: true,
-          labelString: this.ylabel,
-        }
-      }
-
-      if (this.xlabel){
-        if (!options['scales']){
-          options['scales'] = {};
-        }
-        if (!options['scales']['xAxes']){
-          options['scales']['xAxes'] = [{}]
-        }
-        options['scales']['xAxes'][0]['scaleLabel'] = {
-          display: true,
-          labelString: this.xlabel,
-        }
-      }
-
-      let context = this.$refs.canvas.getContext('2d');
-      var chartData = {
-          labels: this.labels,
-          datasets: []
-      };
+      let chartData = this.getChartData();
 
       this.values.forEach((values, index, array) => {
         let dataset = {
@@ -81,7 +36,7 @@
         chartData.datasets.push(dataset);
       });
 
-      new Chart(context, {
+      new Chart(this.getContext(), {
         type: 'bar',
         data: chartData,
         options: options,
