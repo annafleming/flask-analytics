@@ -6,3 +6,4 @@ nose
 pandas
 freezegun
 pymongo
+requests
