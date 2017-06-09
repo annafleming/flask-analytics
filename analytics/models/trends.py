@@ -1,4 +1,4 @@
-from .dataset_loader import load_dataset, get_combined_dataset
+from .dataset_loader import load_dataset, get_combined_dataset, load_dataset_from_db
 from ..helpers.datetime_helper import get_beginning_of_the_month, get_range_of_month, convert_date_column
 from ..helpers.dataset_helper import count_values_grouped_by_column, set_column_types, \
     count_column_values_frequency, count_average_value_in_row
@@ -11,7 +11,7 @@ def get_finished(site_name):
 
 
 def get_completed(site_name):
-    ds = load_dataset(site_name, Config.VOC_SURVEY, ['EndDate', 'CompletedPurpose']).dropna(axis=0)
+    ds = load_dataset_from_db(site_name, Config.VOC_SURVEY, ['EndDate', 'CompletedPurpose']).dropna(axis=0)
     return calculate_proportions_by_month(ds, 'EndDate', 'CompletedPurpose')
 
 
