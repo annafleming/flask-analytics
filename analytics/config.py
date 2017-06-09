@@ -1,10 +1,13 @@
 import os
-
+from .env_config import ENV
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
-    SECRET_KEY = 'secret key'
+    SECRET_KEY = ENV['SECRET_KEY']
+    QUALTRICS_API_TOKEN = ENV['QUALTRICS_API_TOKEN']
+    SURVEY_IDS = ENV['SURVEY_IDS']
+    QUALTRICS_DATA_CENTER_ID = ENV['QUALTRICS_DATA_CENTER_ID']
     DEBUG = False
     PETSAFE_APP = 'petsafe'
     SPORTDOG_APP = 'sportdog'

@@ -8,3 +8,4 @@ __pycache__/
 /analytics/static/js/app.js
 /analytics/static/css/app.css
 /analytics/static/vendor/
+/analytics/env_config\.py
