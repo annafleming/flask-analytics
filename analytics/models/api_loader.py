@@ -2,6 +2,8 @@ import requests
 import zipfile
 import os
 from analytics.config import Config
+from .. import db
+
 
 try:
     import simplejson as json
@@ -16,13 +18,16 @@ headers = {
 
 def import_surveys():
     for survey_id in Config.SURVEY_IDS:
-        _import_survey(survey_id)
+        last_exported_id = get_last_imported_survey(Config.SURVEY_IDS[survey_id]['site'], Config.SURVEY_IDS[survey_id]['survey_type'])
+        _import_survey(survey_id, last_exported_id)
 
-
-def _import_survey(survey_id):
+def _import_survey(survey_id, last_exported_id):
     file_format = "csv"
     download_request_url = get_export_url()
-    download_request_payload = '{"format":"' + file_format + '","surveyId":"' + survey_id + '"}'
+    download_request_payload = '{"format":"' + file_format + '","surveyId":"' + survey_id + '"'
+    if last_exported_id:
+        download_request_payload = download_request_payload + ',"lastResponseId":"'+last_exported_id+'"'
+    download_request_payload = download_request_payload + '}'
     download_request_response = requests.request("POST", download_request_url, data=download_request_payload,
                                                  headers=headers)
     progress_id = download_request_response.json()['result']['id']
@@ -48,3 +53,10 @@ def _import_survey(survey_id):
 def get_export_url():
     return "https://"+Config.QUALTRICS_DATA_CENTER_ID+".qualtrics.com/API/v3/responseexports/"
 
+
+def get_last_imported_survey(site, survey_type):
+    response = db.surveys.find_one({"$query": {'site': site, 'survey_type': survey_type},"$orderby": {"$natural": -1}})
+    if response and 'ResponseID' in response:
+        return response['ResponseID']
+    else:
+        return None

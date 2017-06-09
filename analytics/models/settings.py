@@ -14,6 +14,7 @@ file_names = {
 column_rename = {
     Config.PETSAFE_APP: {
         Config.VOC_SURVEY: {
+            'ResponseID': 'ResponseID',
             'StartDate': 'StartDate',
             'EndDate': 'EndDate',
             'Progress': 'Progress',
@@ -37,6 +38,7 @@ column_rename = {
             'Referer': 'Referrer',
         },
         Config.COMMENT_CARD_SURVEY: {
+            'ResponseID': 'ResponseID',
             'StartDate': 'StartDate',
             'EndDate': 'EndDate',
             'Progress': 'Progress',
@@ -61,6 +63,7 @@ column_rename = {
     },
     Config.SPORTDOG_APP: {
         Config.VOC_SURVEY: {
+            'ResponseID': 'ResponseID',
             'StartDate': 'StartDate',
             'EndDate': 'EndDate',
             'Progress': 'Progress',
@@ -84,6 +87,7 @@ column_rename = {
             'Referer': 'Referrer',
         },
         Config.COMMENT_CARD_SURVEY: {
+            'ResponseID': 'ResponseID',
             'StartDate': 'StartDate',
             'EndDate': 'EndDate',
             'Progress': 'Progress',
@@ -107,6 +111,7 @@ column_rename = {
 }
 
 column_types = {
+    'ResponseID': 'object',
     'StartDate': 'datetime64',
     'EndDate': 'datetime64',
     'Progress': 'int64',

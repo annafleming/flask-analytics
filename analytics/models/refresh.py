@@ -61,7 +61,6 @@ def save_survey_entries():
         {'site': Config.SPORTDOG_APP, 'survey_type': Config.VOC_SURVEY},
         {'site': Config.SPORTDOG_APP, 'survey_type': Config.COMMENT_CARD_SURVEY},
     ]
-    db.surveys.delete_many({})
     for survey in surveys:
         ds = load_dataset(survey['site'], survey['survey_type'],
                           list(column_rename[survey['site']][survey['survey_type']].values()))
