@@ -2,12 +2,12 @@ from analytics.config import Config
 
 file_names = {
     'petsafe': {
-        'voc': 'data/PetSafeVOCSurvey.csv',
-        'cc': 'data/PetSafeFeedbackCommentCard.csv'
+        'voc': 'data/PetSafe VOC Survey - Main.csv',
+        'cc': 'data/PetSafe Feedback Comment Card.csv'
     },
     'sportdog': {
-        'voc': 'data/SportDOGVOCSurvey.csv',
-        'cc': 'data/SportDOGFeedbackCommentCard.csv'
+        'voc': 'data/SportDOG VOC Survey - Main.csv',
+        'cc': 'data/SportDOG Feedback Comment Card.csv' 
     }
 }
 
