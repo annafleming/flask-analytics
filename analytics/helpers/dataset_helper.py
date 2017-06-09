@@ -83,7 +83,11 @@ def set_column_types(ds, columns):
         raise Exception('Column(s) are missing from types dictionary')
     for column in columns:
         if column_types[column] == 'bool':
-            bool_conversion = {'True': True, 'False': False, True: True, False: False, 'Yes': True, 'No': False}
+            bool_conversion = {'True': True, 'False': False,
+                               True: True, False: False,
+                               'Yes': True, 'No': False,
+                               1: True, 0: False,
+                               '1': True, '0': False}
             ds[column] = convert_column_values(ds[column], bool_conversion)
         else:
             ds[column] = ds[column].astype(column_types[column])
