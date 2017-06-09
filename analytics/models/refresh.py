@@ -7,9 +7,10 @@ from ..models.csv_reader import load_dataset_from_csv
 from .settings import file_names, column_rename
 from ..models.dataset_loader import load_dataset
 from analytics.config import Config
-
+from ..models.api_loader import import_surveys
 
 def refresh_all():
+    import_surveys()
     save_survey_entries()
     db.analytics.delete_many({})
     db.analytics.insert_one({'type': 'summary', 'data': {
