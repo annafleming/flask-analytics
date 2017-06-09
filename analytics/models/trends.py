@@ -81,20 +81,20 @@ def get_website_rating(site_name):
     result_ds = result_ds.sort_values('EndDate')
     result_ds['EndDate'] = convert_date_column(result_ds['EndDate'], format_in="%Y-%m-%d", format_out="%b %y")
     result_ds['Average'] = count_average_value_in_row(result_ds, column_weights={
-        'Very Bad': 1,
-        'Bad': 2,
-        'Fair': 3,
-        'Good': 4,
-        'Very Good': 5,
+        '1': 1,
+        '2': 2,
+        '3': 3,
+        '4': 4,
+        '5': 5,
     })
     result_ds['Average'].fillna(0, inplace=True)
     result = {
         'Keys': result_ds['EndDate'].tolist(),
         'Average': result_ds['Average'].tolist(),
     }
-
+    value_aliases = {'1':'Very Bad', '2': 'Bad', '3': 'Fair', '4': 'Good', '5': 'Very Good'}
     for column in unique_rating_values:
-        result[column] = result_ds[column].tolist()
+        result[value_aliases[column]] = result_ds[column].tolist()
     return result
 
 
