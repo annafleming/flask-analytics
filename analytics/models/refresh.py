@@ -3,8 +3,14 @@ from ..models.trends import get_finished, get_completed, get_feedback_types, get
 from flask import jsonify
 from .. import db
 from ..helpers.datetime_helper import get_timestamp
+from ..models.csv_reader import load_dataset_from_csv
+from .settings import file_names, column_rename
+from ..models.dataset_loader import load_dataset
+from analytics.config import Config
+
 
 def refresh_all():
+    save_survey_entries()
     db.analytics.delete_many({})
     db.analytics.insert_one({'type': 'summary', 'data': {
         'petsafe': get_summary('petsafe'),
@@ -45,3 +51,24 @@ def get_data(key):
 
 def get_update_timestamp():
     return get_data('timestamp')
+
+
+def save_survey_entries():
+    surveys = [
+        {'site': Config.PETSAFE_APP, 'survey_type': Config.VOC_SURVEY},
+        {'site': Config.PETSAFE_APP, 'survey_type': Config.COMMENT_CARD_SURVEY},
+        {'site': Config.SPORTDOG_APP, 'survey_type': Config.VOC_SURVEY},
+        {'site': Config.SPORTDOG_APP, 'survey_type': Config.COMMENT_CARD_SURVEY},
+    ]
+    db.surveys.delete_many({})
+    for survey in surveys:
+        ds = load_dataset(survey['site'], survey['survey_type'],
+                          list(column_rename[survey['site']][survey['survey_type']].values()))
+        for index, row in ds.iterrows():
+            data = {}
+            for column in list(column_rename[survey['site']][survey['survey_type']].values()):
+                data['site'] = survey['site']
+                data['survey_type'] = survey['survey_type']
+                data[column] = row[column]
+            db.surveys.insert_one(data)
+
