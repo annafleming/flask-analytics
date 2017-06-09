@@ -7,7 +7,7 @@ file_names = {
     },
     'sportdog': {
         'voc': 'data/SportDOG VOC Survey - Main.csv',
-        'cc': 'data/SportDOG Feedback Comment Card.csv' 
+        'cc': 'data/SportDOG Feedback Comment Card.csv'
     }
 }
 
