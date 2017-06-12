@@ -24,7 +24,7 @@ def import_surveys():
 def _import_survey(survey_id, last_exported_id):
     file_format = "csv"
     download_request_url = get_export_url()
-    download_request_payload = '{"format":"' + file_format + '","surveyId":"' + survey_id + '"'
+    download_request_payload = '{"format":"' + file_format + '","surveyId":"' + survey_id + '","useLabels":true'
     if last_exported_id:
         download_request_payload = download_request_payload + ',"lastResponseId":"'+last_exported_id+'"'
     download_request_payload = download_request_payload + '}'
