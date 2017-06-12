@@ -46,21 +46,19 @@ def calculate_proportions_by_month(ds, date_column, value_column):
 
 
 def get_feedback_types(site_name):
-    type_aliases = {
-        'Products' : '1',
-        'Website Experience': '2',
-    }
     merged_dataset = get_combined_dataset(site_name, ['EndDate', 'FeedbackType'])
     merged_dataset['EndDate'] = get_beginning_of_the_month(merged_dataset['EndDate'],
                                                            format_in="%Y-%m-%d %H:%M:%S",
                                                            format_out="%Y-%m-%d")
     result_ds = count_column_values_frequency(merged_dataset, 'EndDate', 'FeedbackType')
+    result_ds['Products'] = result_ds['Products'] + result_ds['Product(s)']
+    result_ds.drop(['Product(s)'], axis=1, inplace=True)
     result_ds.sort_values('EndDate', inplace=True)
     result_ds['EndDate'] = convert_date_column(result_ds['EndDate'], format_in="%Y-%m-%d", format_out="%b %y")
     return {
         'Keys': result_ds['EndDate'].tolist(),
-        'Website Experience': result_ds[type_aliases['Website Experience']].tolist(),
-        'Products': result_ds[type_aliases['Products']].tolist(),
+        'Website Experience': result_ds['Website Experience'].tolist(),
+        'Products': result_ds['Products'].tolist(),
     }
 
 
@@ -81,20 +79,19 @@ def get_website_rating(site_name):
     result_ds = result_ds.sort_values('EndDate')
     result_ds['EndDate'] = convert_date_column(result_ds['EndDate'], format_in="%Y-%m-%d", format_out="%b %y")
     result_ds['Average'] = count_average_value_in_row(result_ds, column_weights={
-        '1': 1,
-        '2': 2,
-        '3': 3,
-        '4': 4,
-        '5': 5,
+        'Very Bad': 1,
+        'Bad': 2,
+        'Fair': 3,
+        'Good': 4,
+        'Very Good': 5,
     })
     result_ds['Average'].fillna(0, inplace=True)
     result = {
         'Keys': result_ds['EndDate'].tolist(),
         'Average': result_ds['Average'].tolist(),
     }
-    value_aliases = {'1':'Very Bad', '2': 'Bad', '3': 'Fair', '4': 'Good', '5': 'Very Good'}
     for column in unique_rating_values:
-        result[value_aliases[column]] = result_ds[column].tolist()
+        result[column] = result_ds[column].tolist()
     return result
 
 
