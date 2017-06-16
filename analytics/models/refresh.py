@@ -14,13 +14,13 @@ def refresh_all():
     import_surveys()
     save_survey_entries()
     db_operations.remove_analytics()
-    db_operations.insert_analytics({'type': 'summary', 'data': get_summary([Config.PETSAFE_APP, Config.SPORTDOG_APP])})
-    db_operations.insert_analytics({'type': 'finished', 'data': get_finished([Config.PETSAFE_APP, Config.SPORTDOG_APP])})
-    db_operations.insert_analytics({'type': 'completed', 'data': get_completed([Config.PETSAFE_APP, Config.SPORTDOG_APP])})
-    db_operations.insert_analytics({'type': 'feedback_types', 'data': get_feedback_types([Config.PETSAFE_APP, Config.SPORTDOG_APP])})
-    db_operations.insert_analytics({'type': 'website_rating', 'data': get_website_rating([Config.PETSAFE_APP, Config.SPORTDOG_APP])})
-    db_operations.insert_analytics({'type': 'product_rating', 'data': get_product_rating([Config.PETSAFE_APP, Config.SPORTDOG_APP])})
-
+    db_operations.insert_analytics([
+        {'type': 'summary', 'data': get_summary([Config.PETSAFE_APP, Config.SPORTDOG_APP])},
+        {'type': 'finished', 'data': get_finished([Config.PETSAFE_APP, Config.SPORTDOG_APP])},
+        {'type': 'completed', 'data': get_completed([Config.PETSAFE_APP, Config.SPORTDOG_APP])},
+        {'type': 'feedback_types', 'data': get_feedback_types([Config.PETSAFE_APP, Config.SPORTDOG_APP])},
+        {'type': 'website_rating', 'data': get_website_rating([Config.PETSAFE_APP, Config.SPORTDOG_APP])},
+        {'type': 'product_rating', 'data': get_product_rating([Config.PETSAFE_APP, Config.SPORTDOG_APP])}])
     timestamp = get_timestamp()
     db.analytics.insert_one({'type': 'timestamp', 'data': timestamp})
     return str(timestamp)
