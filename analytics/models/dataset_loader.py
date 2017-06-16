@@ -5,6 +5,7 @@ from ..helpers import dataset_helper
 from .csv_reader import load_dataset_from_csv
 from .. import db
 
+
 def load_dataset(site_name, survey_type, columns):
     dataset = load_dataset_from_csv(file_names[site_name][survey_type])
     dataset = dataset_helper.trim_heading_rows(dataset=dataset, rows=2)
@@ -19,6 +20,7 @@ def load_dataset_from_db(site_name, survey_type, columns):
     dataset = dataset_helper.add_columns_if_not_exist(dataset, columns)
     dataset = dataset_helper.filter_columns(dataset, columns)
     return dataset
+
 
 def fetch_original_column_names(site_name, survey_type, columns):
     columns_set = column_rename[site_name][survey_type]

@@ -1,4 +1,3 @@
-from ..models.summary import get_summary
 from ..models.trends import get_finished, get_completed, get_feedback_types, get_website_rating, get_product_rating
 from flask import jsonify
 from .. import db
@@ -8,15 +7,14 @@ from .dataset_settings import file_names, column_rename
 from ..models.dataset_loader import load_dataset
 from analytics.config import Config
 from ..models.api_loader import import_surveys
+from .stats import get_summary
+
 
 def refresh_all():
     import_surveys()
     save_survey_entries()
     db.analytics.delete_many({})
-    db.analytics.insert_one({'type': 'summary', 'data': {
-        'petsafe': get_summary('petsafe'),
-        'sportdog': get_summary('sportdog'),
-    }})
+    db.analytics.insert_one({'type': 'summary', 'data': get_summary([Config.PETSAFE_APP, Config.SPORTDOG_APP])})
     db.analytics.insert_one({'type': 'finished', 'data': {
         'petsafe': get_finished('petsafe'),
         'sportdog': get_finished('sportdog'),
