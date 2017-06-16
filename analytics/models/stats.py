@@ -1,4 +1,4 @@
-from .dataset_loader import get_combined_dataset, load_dataset_from_db
+from .dataset_operations import get_combined_dataset, load_dataset_from_db
 from ..helpers import dataset_helper, datetime_helper
 from analytics.config import Config
 

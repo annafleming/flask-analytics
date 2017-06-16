@@ -30,4 +30,4 @@ def website_rating():
 
 @charts.route('/product_rating')
 def product_rating():
-    return jsonify(db_operations.fetch_analytics('website_rating'))
+    return jsonify(db_operations.fetch_analytics('product_rating'))

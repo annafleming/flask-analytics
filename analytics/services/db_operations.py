@@ -35,6 +35,13 @@ def fetch_timestamp(key):
         return entry['data']
 
 
+def insert_surveys(data):
+    if type(data) is list:
+        db.surveys.insert_many(data)
+    else:
+        db.surveys.insert_one(data)
+
+
 def fetch_last_survey(site, survey_type):
     return db.surveys.find_one({"$query": {'site': site, 'survey_type': survey_type},
                                 "$orderby": {"$natural": -1}})
