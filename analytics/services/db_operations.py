@@ -33,3 +33,8 @@ def fetch_timestamp(key):
         return ''
     else:
         return entry['data']
+
+
+def fetch_last_survey(site, survey_type):
+    return db.surveys.find_one({"$query": {'site': site, 'survey_type': survey_type},
+                                "$orderby": {"$natural": -1}})
