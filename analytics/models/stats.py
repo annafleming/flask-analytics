@@ -33,6 +33,92 @@ def get_completed(sites):
     return result
 
 
+def get_feedback_types(sites):
+    result = dict()
+    for site in sites:
+        dataset = get_combined_dataset(site, ['EndDate', 'FeedbackType'])
+        dataset['EndDate'] = datetime_helper.get_beginning_of_the_month(dataset['EndDate'],
+                                                                        format_in="%Y-%m-%d %H:%M:%S",
+                                                                        format_out="%Y-%m-%d")
+        dataset = dataset_helper.count_column_values_frequency(dataset, 'EndDate', 'FeedbackType')
+        dataset['Products'] = dataset['Products'] + dataset['Product(s)']
+        dataset.drop(['Product(s)'], axis=1, inplace=True)
+        dataset.sort_values('EndDate', inplace=True)
+        dataset['EndDate'] = datetime_helper.convert_date_column(dataset['EndDate'],
+                                                                 format_in="%Y-%m-%d",
+                                                                 format_out="%b %y")
+        result[site] = {
+            'Keys': dataset['EndDate'].tolist(),
+            'Website Experience': dataset['Website Experience'].tolist(),
+            'Products': dataset['Products'].tolist(),
+        }
+    return result
+
+
+def get_website_rating(sites):
+    result = dict()
+    for site in sites:
+        dataset = get_combined_dataset(site, ['EndDate', 'WebsiteRating']).dropna(axis=0)
+        unique_rating_values = dataset['WebsiteRating'].unique().tolist()
+        column_default_values = {column: 0 for column in unique_rating_values}
+
+        dataset['EndDate'] = datetime_helper.get_beginning_of_the_month(dataset['EndDate'],
+                                                                        format_in="%Y-%m-%d %H:%M:%S",
+                                                                        format_out="%Y-%m-%d")
+        dataset = dataset_helper.count_column_values_frequency(dataset, 'EndDate', 'WebsiteRating')
+        dataset = _fill_values_if_monthly_data_is_missing(dataset, 'EndDate', "%Y-%m-%d", column_default_values)
+        dataset = dataset.sort_values('EndDate')
+        dataset['EndDate'] = datetime_helper.convert_date_column(dataset['EndDate'], format_in="%Y-%m-%d", format_out="%b %y")
+        dataset['Average'] = dataset_helper.count_average_value_in_row(dataset, column_weights={
+            'Very Bad': 1,
+            'Bad': 2,
+            'Fair': 3,
+            'Good': 4,
+            'Very Good': 5,
+        })
+        dataset['Average'].fillna(0, inplace=True)
+        result[site] = {
+            'Keys': dataset['EndDate'].tolist(),
+            'Average': dataset['Average'].tolist(),
+        }
+        for column in unique_rating_values:
+            result[site][column] = dataset[column].tolist()
+    return result
+
+
+def get_product_rating(sites):
+    result = dict()
+    for site in sites:
+        dataset = get_combined_dataset(site, ['EndDate', 'ProductRating']).dropna(axis=0)
+        dataset['ProductRating'] = dataset['ProductRating'].astype(int)
+        unique_rating_values = [column for column in dataset['ProductRating'].unique()]
+        column_default_values = {column: 0 for column in unique_rating_values}
+
+        dataset['EndDate'] = datetime_helper.get_beginning_of_the_month(dataset['EndDate'],
+                                                                        format_in="%Y-%m-%d %H:%M:%S",
+                                                                        format_out="%Y-%m-%d")
+
+        dataset = dataset_helper.count_column_values_frequency(dataset, 'EndDate', 'ProductRating')
+        dataset = _fill_values_if_monthly_data_is_missing(dataset, 'EndDate', "%Y-%m-%d", column_default_values)
+        dataset.columns = dataset.columns.astype(str)
+        dataset = dataset.sort_values('EndDate')
+        dataset['EndDate'] = datetime_helper.convert_date_column(dataset['EndDate'], format_in="%Y-%m-%d", format_out="%b %y")
+        column_weights = {str(column): int(column) for column in unique_rating_values}
+        dataset['Average'] = dataset_helper.count_average_value_in_row(dataset, column_weights=column_weights)
+        dataset['Average'] = dataset['Average'].fillna(0)
+        dataset['Detractors'] = dataset[["0", "1", "2", "3", "4", "5", "6"]].sum(axis=1)
+        dataset['Passives'] = dataset[["7", "8"]].sum(axis=1)
+        dataset['Promoters'] = dataset[["9", "10"]].sum(axis=1)
+        result[site] = {
+            'Keys': dataset['EndDate'].tolist(),
+            'Average': dataset['Average'].tolist(),
+            'Detractors': dataset['Detractors'].tolist(),
+            'Passives': dataset['Passives'].tolist(),
+            'Promoters': dataset['Promoters'].tolist(),
+        }
+    return result
+
+
 def _get_unified_rating_column(dataset):
     dataset['WebsiteRating'] = dataset_helper.change_column_scale(dataset['WebsiteRating'])
     dataset['ProductRating'] = dataset_helper.change_column_scale(dataset['ProductRating'])

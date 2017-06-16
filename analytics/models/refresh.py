@@ -1,4 +1,3 @@
-from ..models.trends import get_feedback_types, get_website_rating, get_product_rating
 from flask import jsonify
 from .. import db
 from ..helpers.datetime_helper import get_timestamp
@@ -7,7 +6,7 @@ from .dataset_settings import file_names, column_rename
 from ..models.dataset_loader import load_dataset
 from analytics.config import Config
 from ..models.api_loader import import_surveys
-from .stats import get_summary, get_finished, get_completed
+from .stats import get_summary, get_finished, get_completed, get_feedback_types, get_website_rating, get_product_rating
 from ..services import db_operations
 
 
@@ -18,19 +17,10 @@ def refresh_all():
     db_operations.insert_analytics({'type': 'summary', 'data': get_summary([Config.PETSAFE_APP, Config.SPORTDOG_APP])})
     db_operations.insert_analytics({'type': 'finished', 'data': get_finished([Config.PETSAFE_APP, Config.SPORTDOG_APP])})
     db_operations.insert_analytics({'type': 'completed', 'data': get_completed([Config.PETSAFE_APP, Config.SPORTDOG_APP])})
+    db_operations.insert_analytics({'type': 'feedback_types', 'data': get_feedback_types([Config.PETSAFE_APP, Config.SPORTDOG_APP])})
+    db_operations.insert_analytics({'type': 'website_rating', 'data': get_website_rating([Config.PETSAFE_APP, Config.SPORTDOG_APP])})
+    db_operations.insert_analytics({'type': 'product_rating', 'data': get_product_rating([Config.PETSAFE_APP, Config.SPORTDOG_APP])})
 
-    db.analytics.insert_one({'type': 'feedback_types', 'data': {
-        'petsafe': get_feedback_types('petsafe'),
-        'sportdog': get_feedback_types('sportdog'),
-    }})
-    db.analytics.insert_one({'type': 'website_rating', 'data': {
-        'petsafe': get_website_rating('petsafe'),
-        'sportdog': get_website_rating('sportdog'),
-    }})
-    db.analytics.insert_one({'type': 'product_rating', 'data': {
-        'petsafe': get_product_rating('petsafe'),
-        'sportdog': get_product_rating('sportdog'),
-    }})
     timestamp = get_timestamp()
     db.analytics.insert_one({'type': 'timestamp', 'data': timestamp})
     return str(timestamp)
