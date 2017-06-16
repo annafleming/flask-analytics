@@ -2,12 +2,12 @@ import pandas as pd
 from ..config import Config
 from .dataset_settings import file_names, column_rename
 from ..helpers import dataset_helper
-from .csv_reader import load_dataset_from_csv
+from ..services import csv_adapter
 from .. import db
 
 
 def load_dataset(site_name, survey_type, columns):
-    dataset = load_dataset_from_csv(file_names[site_name][survey_type])
+    dataset = csv_adapter.load_dataset_from_csv(file_names[site_name][survey_type])
     dataset = dataset_helper.trim_heading_rows(dataset=dataset, rows=2)
     dataset = dataset_helper.rename_columns(dataset, fetch_original_column_names(site_name, survey_type, columns))
     dataset = dataset_helper.add_columns_if_not_exist(dataset, columns)
