@@ -8,13 +8,13 @@ from ..models.dataset_loader import load_dataset
 from analytics.config import Config
 from ..models.api_loader import import_surveys
 from .stats import get_summary
-
+from ..services import db_operations
 
 def refresh_all():
     import_surveys()
     save_survey_entries()
-    db.analytics.delete_many({})
-    db.analytics.insert_one({'type': 'summary', 'data': get_summary([Config.PETSAFE_APP, Config.SPORTDOG_APP])})
+    db_operations.remove_analytics()
+    db_operations.insert_analytics({'type': 'summary', 'data': get_summary([Config.PETSAFE_APP, Config.SPORTDOG_APP])})
     db.analytics.insert_one({'type': 'finished', 'data': {
         'petsafe': get_finished('petsafe'),
         'sportdog': get_finished('sportdog'),
