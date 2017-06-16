@@ -1,6 +1,6 @@
 from . import refresh
-from ..models.refresh import refresh_all, get_update_timestamp
-
+from ..models.refresh import refresh_all
+from ..services import db_operations
 
 @refresh.route('/')
 def index():
@@ -9,4 +9,4 @@ def index():
 
 @refresh.route('/last_updated')
 def last_updated():
-    return get_update_timestamp()
+    return str(db_operations.fetch_timestamp('updated_analytics'))

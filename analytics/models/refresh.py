@@ -1,8 +1,5 @@
-from flask import jsonify
 from .. import db
-from ..helpers.datetime_helper import get_timestamp
-from ..models.csv_reader import load_dataset_from_csv
-from .dataset_settings import file_names, column_rename
+from .dataset_settings import column_rename
 from ..models.dataset_loader import load_dataset
 from analytics.config import Config
 from ..models.api_loader import import_surveys
@@ -21,21 +18,7 @@ def refresh_all():
         {'type': 'feedback_types', 'data': get_feedback_types([Config.PETSAFE_APP, Config.SPORTDOG_APP])},
         {'type': 'website_rating', 'data': get_website_rating([Config.PETSAFE_APP, Config.SPORTDOG_APP])},
         {'type': 'product_rating', 'data': get_product_rating([Config.PETSAFE_APP, Config.SPORTDOG_APP])}])
-    timestamp = get_timestamp()
-    db.analytics.insert_one({'type': 'timestamp', 'data': timestamp})
-    return str(timestamp)
-
-
-def get_data(key):
-    entry = db.analytics.find_one({'type': key})
-    if not entry:
-        return ''
-    else:
-        return jsonify(entry['data'])
-
-
-def get_update_timestamp():
-    return get_data('timestamp')
+    return str(db_operations.update_timestamp('updated_analytics'))
 
 
 def save_survey_entries():
