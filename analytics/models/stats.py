@@ -1,5 +1,6 @@
-from .dataset_loader import get_combined_dataset
+from .dataset_loader import get_combined_dataset, load_dataset_from_db
 from ..helpers import dataset_helper, datetime_helper
+from analytics.config import Config
 
 
 def get_summary(sites):
@@ -21,6 +22,14 @@ def get_finished(sites):
     for site in sites:
         dataset = get_combined_dataset(site, ['EndDate', 'Finished']).dropna(axis=0)
         result[site] = _calculate_proportions_by_month(dataset, 'EndDate', 'Finished')
+    return result
+
+
+def get_completed(sites):
+    result = dict()
+    for site in sites:
+        dataset = load_dataset_from_db(site, Config.VOC_SURVEY, ['EndDate', 'CompletedPurpose']).dropna(axis=0)
+        result[site] = _calculate_proportions_by_month(dataset, 'EndDate', 'CompletedPurpose')
     return result
 
 
