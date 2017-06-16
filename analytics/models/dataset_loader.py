@@ -1,6 +1,6 @@
 import pandas as pd
 from ..config import Config
-from .settings import file_names, column_rename
+from .dataset_settings import file_names, column_rename
 from ..helpers import dataset_helper
 from .csv_reader import load_dataset_from_csv
 from .. import db

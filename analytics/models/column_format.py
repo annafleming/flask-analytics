@@ -1,4 +1,4 @@
-from .settings import column_scale
+from .dataset_settings import column_scale
 
 
 def change_column_scale(column):

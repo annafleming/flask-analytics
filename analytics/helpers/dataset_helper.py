@@ -1,5 +1,5 @@
 import pandas as pd
-from ..models.settings import column_types
+from ..models.dataset_settings import column_types
 
 
 def get_entries_after(dataset, start_date, field_name):
