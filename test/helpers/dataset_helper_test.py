@@ -212,5 +212,42 @@ class DatasetHelperTest(unittest.TestCase):
         print(ds)
         self.assertTrue(ds.equals(expected_ds))
 
+    @patch('analytics.helpers.dataset_helper.column_scale', {'Rating': {
+            'Very bad': 1,
+            'Bad': 1,
+            'Fair': 2,
+            'Good': 3,
+            'Very good': 3,
+            'Default': 0
+        }})
+    def test_should_change_column_scale_according_to_scale(self):
+        ds = pd.DataFrame([["Very bad"], ["Bad"], ["Fair"]], columns=['Rating'])
+        ds['Rating'] = analytics.helpers.dataset_helper.change_column_scale(ds['Rating'])
+        self.assertEqual(ds['Rating'].tolist(), [1, 1, 2])
+
+    @patch('analytics.helpers.dataset_helper.column_scale', {'Rating': {
+        'Very bad': 1,
+        'Bad': 1,
+        'Fair': 2,
+        'Good': 3,
+        'Very good': 3
+    }})
+    def test_should_throw_exception_if_default_value_is_missing_in_settings(self):
+        ds = pd.DataFrame([["Very bad"], ["Bad"], ["Fair"]], columns=['Rating'])
+        self.assertRaises(Exception, analytics.helpers.dataset_helper.change_column_scale, ds['Rating'])
+
+    @patch('analytics.helpers.dataset_helper.column_scale', {'Rating': {
+            'Very bad': 1,
+            'Bad': 1,
+            'Fair': 2,
+            'Good': 3,
+            'Very good': 3,
+            'Default': 0
+        }})
+    def test_should_set_default_value_when_scale_column_and_value_absent_in_settings(self):
+        ds = pd.DataFrame([["Very bad"], ["Bad"], ["Excellent"]], columns=['Rating'])
+        ds['Rating'] = analytics.helpers.dataset_helper.change_column_scale(ds['Rating'])
+        self.assertEqual(ds['Rating'].tolist(), [1, 1, 0])
+
     if __name__ == '__main__':
         unittest.main()

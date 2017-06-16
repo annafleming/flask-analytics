@@ -1,8 +1,7 @@
 from .dataset_loader import load_dataset, get_combined_dataset
-from ..helpers.dataset_helper import merge_datasets_vertically, get_entries_after, merge_columns
+from ..helpers.dataset_helper import merge_datasets_vertically, get_entries_after, merge_columns, change_column_scale
 from ..helpers.datetime_helper import subtract_from_today_days
 from ..config import Config
-from ..models.column_format import change_column_scale
 
 
 def get_summary(site_name):
