@@ -23,5 +23,8 @@ def create_app(config_name):
     from .refresh import refresh as refresh_blueprint
     app.register_blueprint(refresh_blueprint, url_prefix='/refresh')
 
+    from .responses import responses as responses_blueprint
+    app.register_blueprint(responses_blueprint, url_prefix='/responses')
+
     return app
 
