@@ -25,6 +25,10 @@ let routes = [
         path: '/charts/product_rating',
         component : require('./components/ProductRating')
     },
+    {
+        path: '/responses/:name',
+        component : require('./components/SurveyResponses')
+    },
 ];
 
 export default new VueRouter({
