@@ -57,6 +57,5 @@ def fetch_surveys(site_name=None, survey_type=None, columns=list()):
     if columns:
         for column in columns:
             query_filter[column] = 1
-    else:
-        query_filter['_id'] = 0
+    query_filter['_id'] = 0
     return db.surveys.find(query, query_filter)
