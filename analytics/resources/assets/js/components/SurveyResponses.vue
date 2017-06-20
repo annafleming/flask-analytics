@@ -1,17 +1,17 @@
 <template>
-  <h1>{{ heading }}</h1>
+  <h1>Survey responses for {{ $route.params.name }}</h1>
 </template>
 
 <script>
   export default {
     data(){
       return {
-        heading : ''
+        data : ''
       }
     },
     mounted(){
       axios.get('/responses/fetch/'+this.$route.params.name).then(response => {
-        this.heading = response.data;
+        this.data = response.data;
       });
     },
   }

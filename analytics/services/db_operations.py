@@ -45,3 +45,12 @@ def insert_surveys(data):
 def fetch_last_survey(site, survey_type):
     return db.surveys.find_one({"$query": {'site': site, 'survey_type': survey_type},
                                 "$orderby": {"$natural": -1}})
+
+
+def fetch_surveys(site_name=None, survey_type=None):
+    query = {}
+    if site_name:
+        query['site'] = site_name
+    if survey_type:
+        query['survey_type'] = survey_type
+    return db.surveys.find(query, {'_id': 0})
