@@ -47,10 +47,16 @@ def fetch_last_survey(site, survey_type):
                                 "$orderby": {"$natural": -1}})
 
 
-def fetch_surveys(site_name=None, survey_type=None):
+def fetch_surveys(site_name=None, survey_type=None, columns=list()):
     query = {}
     if site_name:
         query['site'] = site_name
     if survey_type:
         query['survey_type'] = survey_type
-    return db.surveys.find(query, {'_id': 0})
+    query_filter = {}
+    if columns:
+        for column in columns:
+            query_filter[column] = 1
+    else:
+        query_filter['_id'] = 0
+    return db.surveys.find(query, query_filter)
