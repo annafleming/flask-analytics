@@ -28,12 +28,12 @@
     </div>
     <div>
       <ul class="pagination">
-        <li class="page-item"><a class="page-link" v-on:click="previous">Previous</a></li>
-        <li class="page-item"><a class="page-link" v-on:click="next">Next</a></li>
+        <li v-bind:class="[{ 'disabled': currentPage == 1 }, 'page-item']"><a class="page-link" v-on:click="previous">Previous</a></li>
+        <li v-bind:class="[{ 'disabled': currentPage == totalPages }, 'page-item']"><a class="page-link" v-on:click="next">Next</a></li>
       </ul>
     </div>
   </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -45,6 +45,7 @@
         column: '',
         currentPage: 1,
         limit: 5,
+        total: 1
       }
     },
     mounted(){
@@ -57,17 +58,25 @@
         axios.get(url).then(response => {
           self.survey_responses = response.data.survey_responses;
           self.columns = response.data.columns;
+          this.total = response.data.total;
         });
       },
       next(){
-        this.currentPage += 1;
-        this.fetch();
+        if (this.currentPage < this.totalPages){
+          this.currentPage += 1;
+          this.fetch();
+        }
       },
       previous(){
         if (this.currentPage > 1){
           this.currentPage -= 1;
           this.fetch();
         }
+      }
+    },
+    computed:{
+      totalPages(){
+        return Math.ceil(this.total/this.limit);
       }
     }
   }

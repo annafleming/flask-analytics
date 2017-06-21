@@ -17,6 +17,7 @@ def fetch(name):
     response = {
         'survey_responses': surveys,
         'columns': columns,
+        'total': int(db_operations.fetch_surveys_count(site_name=name))
     }
     return jsonify(response)
 

@@ -62,3 +62,12 @@ def fetch_surveys(site_name=None, survey_type=None, columns=list(), page=1, limi
     limit = int(limit)
     offset = (page - 1) * limit
     return db.surveys.find(query, query_filter).skip(offset).limit(limit).sort("EndDate", -1)
+
+
+def fetch_surveys_count(site_name=None, survey_type=None):
+    query = {}
+    if site_name:
+        query['site'] = site_name
+    if survey_type:
+        query['survey_type'] = survey_type
+    return db.surveys.find(query).count()
