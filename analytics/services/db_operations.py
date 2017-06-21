@@ -58,4 +58,4 @@ def fetch_surveys(site_name=None, survey_type=None, columns=list()):
         for column in columns:
             query_filter[column] = 1
     query_filter['_id'] = 0
-    return db.surveys.find(query, query_filter).limit(20)
+    return db.surveys.find(query, query_filter).limit(20).sort("EndDate", -1)
