@@ -22,6 +22,12 @@
         </tbody>
       </table>
     </div>
+    <div>
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" v-on:click="previous">Previous</a></li>
+        <li class="page-item"><a class="page-link" v-on:click="next">Next</a></li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -32,14 +38,32 @@
         survey_responses : [],
         columns: [],
         column: '',
+        currentPage: 1,
+        limit: 5,
       }
     },
     mounted(){
-      self = this;
-      axios.get('/responses/fetch/'+this.$route.params.name).then(response => {
-        self.survey_responses = response.data.survey_responses;
-        self.columns = response.data.columns;
-      });
+      this.fetch();
     },
+    methods:{
+      fetch(){
+        self = this;
+        let url = '/responses/fetch/'+this.$route.params.name+'?page='+this.currentPage+'&limit='+this.limit;
+        axios.get(url).then(response => {
+          self.survey_responses = response.data.survey_responses;
+          self.columns = response.data.columns;
+        });
+      },
+      next(){
+        this.currentPage += 1;
+        this.fetch();
+      },
+      previous(){
+        if (this.currentPage > 1){
+          this.currentPage -= 1;
+          this.fetch();
+        }
+      }
+    }
   }
 </script>
