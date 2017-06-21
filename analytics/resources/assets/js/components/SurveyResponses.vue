@@ -3,6 +3,10 @@
 
 
   <h1>Survey responses for {{ $route.params.name }}</h1>
+  <div class="col-lg-12 text-right">
+    <span class="badge badge-default">Page {{ currentPage }}</span>
+  </div>
+  <div class="col-lg-12">
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
         <thead>
@@ -28,6 +32,7 @@
         <li class="page-item"><a class="page-link" v-on:click="next">Next</a></li>
       </ul>
     </div>
+  </div>
   </div>
 </template>
 
