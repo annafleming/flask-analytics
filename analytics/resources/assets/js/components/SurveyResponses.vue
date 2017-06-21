@@ -8,7 +8,7 @@
         <thead>
           <tr>
             <th v-for="column in columns">
-              {{column}}
+              {{ column }}
             </th>
           </tr>
         </thead>
@@ -31,6 +31,7 @@
       return {
         survey_responses : [],
         columns: [],
+        column: '',
       }
     },
     mounted(){
