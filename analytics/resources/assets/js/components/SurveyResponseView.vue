@@ -1,5 +1,5 @@
 <template>
-  <div class="col-lg-6">
+  <div class="col-lg-12">
     <div class="table-responsive">
       <table class="table table-bordered table-hover">
           <tbody>
