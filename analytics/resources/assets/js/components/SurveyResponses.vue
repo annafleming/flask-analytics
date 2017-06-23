@@ -78,6 +78,11 @@
       totalPages(){
         return Math.ceil(this.total/this.limit);
       }
+    },
+    watch: {
+      '$route.params.name'(newId, oldId) {
+          this.fetch();
+        }
     }
   }
 </script>
