@@ -1,5 +1,6 @@
 from .. import db
 from ..helpers.datetime_helper import get_timestamp
+from bson.objectid import ObjectId
 
 
 def insert_analytics(data):
@@ -57,7 +58,6 @@ def fetch_surveys(site_name=None, survey_type=None, columns=list(), page=1, limi
     if columns:
         for column in columns:
             query_filter[column] = 1
-    query_filter['_id'] = 0
     page = int(page)
     limit = int(limit)
     offset = (page - 1) * limit
@@ -71,3 +71,7 @@ def fetch_surveys_count(site_name=None, survey_type=None):
     if survey_type:
         query['survey_type'] = survey_type
     return db.surveys.find(query).count()
+
+
+def fetch_survey_response(survey_id):
+    return db.surveys.find_one({'_id': ObjectId(survey_id)})

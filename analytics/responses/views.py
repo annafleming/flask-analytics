@@ -1,6 +1,7 @@
 from . import responses
 from ..services import db_operations
 from flask import jsonify, request
+from bson.json_util import dumps
 
 
 @responses.route('/fetch/<name>')
@@ -19,5 +20,13 @@ def fetch(name):
         'columns': columns,
         'total': int(db_operations.fetch_surveys_count(site_name=name))
     }
-    return jsonify(response)
+    return dumps(response)
 
+
+@responses.route('/fetch/<name>/<id>')
+def fetch_response(name, id):
+    response = dict(db_operations.fetch_survey_response(id))
+    for index, item in response.items():
+        if item != item:
+            response[index] = ''
+    return dumps(response)

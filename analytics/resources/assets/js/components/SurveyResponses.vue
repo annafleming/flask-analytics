@@ -14,6 +14,7 @@
             <th v-for="column in columns">
               {{ column }}
             </th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -21,6 +22,8 @@
             <td v-for="column in columns">
               {{ survey_response[column] }}
             </td>
+            <td>
+              <router-link :to="{ path: $route.params.name+'/'+survey_response['_id']['$oid'] }">View</router-link></td>
             {{column}}
           </tr>
         </tbody>

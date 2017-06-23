@@ -27,8 +27,13 @@ let routes = [
     },
     {
         path: '/responses/:name',
-        component : require('./components/SurveyResponses')
+        component : require('./components/SurveyResponses'),
     },
+    {
+        path: '/responses/:name/:id',
+        component : require('./components/SurveyResponseView'),
+    },
+
 ];
 
 export default new VueRouter({
