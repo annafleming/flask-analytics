@@ -28,6 +28,9 @@
           this.text = 'Update';
           this.updated = response.data;
           Event.$emit('refresh');
+        }).catch(e => {
+          this.text = 'Update';
+          alert('Failed to update data. Please, try again later.');
         });
       }
     },
